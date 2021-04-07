@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Masaż rozgrzanym monitorem",
+    "area": "back",
+    "description": "Cat ipsum dolor sit amet, jaguar yet leopard or jaguar scottish fold. Tom devonshire rex and bombay for ragdoll himalayan. Lion turkish angora tomcat. Birman russian blue savannah. Devonshire rex abyssinian. Thai bobcat.",
+    "time": 30,
+    "price": 80
+  },
+  {
+    "id": 2,
+    "name": "Biczowanie kablem od myszy",
+    "area": "back",
+    "description": "Cat ipsum dolor sit amet, jaguar yet leopard or jaguar scottish fold. Tom devonshire rex and bombay for ragdoll himalayan. Lion turkish angora tomcat. Birman russian blue savannah. Devonshire rex abyssinian. Thai bobcat.",
+    "time": 20,
+    "price": 70
+  },
+  {
+    "id": 3,
+    "name": "Peeling odłamkami płyty CD",
+    "area": "face",
+    "description": "Cat ipsum dolor sit amet, jaguar yet leopard or jaguar scottish fold. Tom devonshire rex and bombay for ragdoll himalayan. Lion turkish angora tomcat. Birman russian blue savannah. Devonshire rex abyssinian. Thai bobcat.",
+    "time": 15,
+    "price": 50
+  },
+  {
+    "id": 4,
+    "name": "Pedicure woskiem z USB",
+    "area": "legs",
+    "description": "Cat ipsum dolor sit amet, jaguar yet leopard or jaguar scottish fold. Tom devonshire rex and bombay for ragdoll himalayan. Lion turkish angora tomcat. Birman russian blue savannah. Devonshire rex abyssinian. Thai bobcat.",
+    "time": 25,
+    "price": 100
+  },
+  {
+    "id": 5,
+    "name": "Manicure analogowo-cyfrowy",
+    "area": "hands",
+    "description": "Cat ipsum dolor sit amet, jaguar yet leopard or jaguar scottish fold. Tom devonshire rex and bombay for ragdoll himalayan. Lion turkish angora tomcat. Birman russian blue savannah. Devonshire rex abyssinian. Thai bobcat.",
+    "time": 45,
+    "price": 150
+  },
+  {
+    "id": 6,
+    "name": "Kąpiel w gorącej kawie",
+    "area": "body",
+    "description": "Cat ipsum dolor sit amet, jaguar yet leopard or jaguar scottish fold. Tom devonshire rex and bombay for ragdoll himalayan. Lion turkish angora tomcat. Birman russian blue savannah. Devonshire rex abyssinian. Thai bobcat.",
+    "time": 60,
+    "price": 200
+  },
+  {
+    "id": 7,
+    "name": "Depilacja dyskiem twardym",
+    "area": "body",
+    "description": "Cat ipsum dolor sit amet, jaguar yet leopard or jaguar scottish fold. Tom devonshire rex and bombay for ragdoll himalayan. Lion turkish angora tomcat. Birman russian blue savannah. Devonshire rex abyssinian. Thai bobcat.",
+    "time": 45,
+    "price": 120
+  }
+]

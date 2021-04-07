@@ -1,11 +1,20 @@
+require('dotenv').config()
 const express = require('express');
+const { MongoClient } = require('mongodb');
 const app = express();
 app.use(express.json());
 
-const port = process.env.PORT || 3000;
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri, {useUnifiedTopology: true});
 
-app.get('/', (req, res) => {
-  res.send("Hello world")
-})
+client.connect().then( client => {
 
-app.listen(port, () => console.log(`Listeninig on port ${port}`))
+  app.get('/', async(req, res) => {
+    const treatments = await client.db().collection('treatments').find({}).toArray();
+    res.send(treatments);
+  })
+  
+  const port = process.env.PORT || 3000;
+  
+  app.listen(port, () => console.log(`Listeninig on port ${port}`))
+} );
