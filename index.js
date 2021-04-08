@@ -1,11 +1,16 @@
 require('dotenv').config()
 const express = require('express');
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const app = express();
 app.use(express.json());
 
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {useUnifiedTopology: true});
+
+const parseId = ({_id, ...rest}) => ({
+  id: _id,
+  ...rest
+})
 
 client.connect().then( client => {
   const db = client.db();
@@ -22,6 +27,38 @@ client.connect().then( client => {
       password: password //hash later
     })
     res.status(201).end();
+  })
+
+  app.get('/rooms', async(req, res) => {
+    const rooms = await db.collection('rooms').find().toArray();
+    const parsedRooms = rooms.map(parseId);
+    res.send(parsedRooms).end();
+  })
+
+  app.get('/rooms/:id', async(req, res) => {
+    const room = await db.collection('rooms').findOne({_id: ObjectId(req.params.id)});
+    if (room) {
+      const parsedRoom = parseId(room);
+      res.send(parsedRoom).end();
+      return;
+    }
+    res.status(400).end();
+  })
+
+  app.get('/treatments', async(req, res) => {
+    const treatments = await db.collection('treatments').find().toArray();
+    const parsedTreatments = treatments.map(parseId);
+    res.send(parsedTreatments).end();
+  })
+
+  app.get('/treatments/:id', async(req, res) => {
+    const treatment = await db.collection('treatments').findOne({_id: ObjectId(req.params.id)});
+    if (treatment) {
+      const parsedTreatment = parseId(treatment);
+      res.send(parsedTreatment).end();
+      return;
+    }
+    res.status(400).end();
   })
   
   const port = process.env.PORT || 3000;
