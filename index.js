@@ -1,8 +1,16 @@
-require('dotenv').config()
+require('dotenv').config();
 const express = require('express');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
 const app = express();
 app.use(express.json());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+}))
 
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {useUnifiedTopology: true});
@@ -16,7 +24,8 @@ client.connect().then( client => {
   const db = client.db();
 
   app.post('/users', async(req, res) => {
-    const {email, password} = req.body
+    const {email, password} = req.body;
+    const hash = await bcrypt.hash(password, 10);
     const user = await db.collection('users').findOne({email: email});
     if (user) {
       res.status(400).end();
@@ -24,9 +33,30 @@ client.connect().then( client => {
     }
     await db.collection('users').insertOne({
       email: email,
-      password: password //hash later
+      password: hash
     })
     res.status(201).end();
+  })
+
+  app.post('/login', async(req, res) => {
+    const {email, password} = req.body;
+    const user = await db.collection('users').findOne({email: email});
+
+    if (user) {
+      const hash = user.password;
+      const passwordsMatch = await bcrypt.compare(password, hash);
+
+      if (passwordsMatch) {
+        req.session.userId = user._id;
+        res.status(201).end();
+        return;
+      }
+    }
+    res.status(403).end();
+  })
+
+  app.get('/logout', async(req, res) => {
+    req.session.destroy(() => res.end());
   })
 
   app.get('/rooms', async(req, res) => {
