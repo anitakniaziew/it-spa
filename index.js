@@ -15,10 +15,19 @@ app.use(session({
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {useUnifiedTopology: true});
 
-const parseId = ({_id, ...rest}) => ({
+const mapId = ({_id, ...rest}) => ({
   id: _id,
   ...rest
 })
+
+const parseToObjectId = (id) => {
+  try {
+    return ObjectId(id);
+  }
+  catch {
+    return null;
+  }
+}
 
 client.connect().then( client => {
   const db = client.db();
@@ -61,14 +70,15 @@ client.connect().then( client => {
 
   app.get('/rooms', async(req, res) => {
     const rooms = await db.collection('rooms').find().toArray();
-    const parsedRooms = rooms.map(parseId);
+    const parsedRooms = rooms.map(mapId);
     res.send(parsedRooms).end();
   })
 
   app.get('/rooms/:id', async(req, res) => {
-    const room = await db.collection('rooms').findOne({_id: ObjectId(req.params.id)});
+    const roomId = parseToObjectId(req.params.id);
+    const room = await db.collection('rooms').findOne({_id: roomId});
     if (room) {
-      const parsedRoom = parseId(room);
+      const parsedRoom = mapId(room);
       res.send(parsedRoom).end();
       return;
     }
@@ -77,20 +87,21 @@ client.connect().then( client => {
 
   app.get('/treatments', async(req, res) => {
     const treatments = await db.collection('treatments').find().toArray();
-    const parsedTreatments = treatments.map(parseId);
+    const parsedTreatments = treatments.map(mapId);
     res.send(parsedTreatments).end();
   })
 
   app.get('/treatments/:id', async(req, res) => {
-    const treatment = await db.collection('treatments').findOne({_id: ObjectId(req.params.id)});
+    const treatmentId = parseToObjectId(req.params.id);
+    const treatment = await db.collection('treatments').findOne({_id: treatmentId});
     if (treatment) {
-      const parsedTreatment = parseId(treatment);
+      const parsedTreatment = mapId(treatment);
       res.send(parsedTreatment).end();
       return;
     }
     res.status(400).end();
   })
-  
+
   const port = process.env.PORT || 3000;
   
   app.listen(port, () => console.log(`Listeninig on port ${port}`))
