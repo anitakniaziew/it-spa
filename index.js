@@ -3,6 +3,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
+const e = require('express');
 const app = express();
 app.use(express.json());
 
@@ -100,6 +101,108 @@ client.connect().then( client => {
       return;
     }
     res.status(400).end();
+  })
+
+  app.get('/cart', async(req, res) => {
+    const currentCart = req.session.cart || [];
+    const cartDetailed = await Promise.all(currentCart.map( async (cartItem) => {
+      if (cartItem.itemType === "NewRoomCartItem") {
+        console.log("abc");
+        const roomId = parseToObjectId(cartItem.id);
+        const room = await db.collection('rooms').findOne({_id: roomId});
+        return ({
+          ...cartItem,
+          roomDetails: mapId(room)
+        });
+      } else {
+        const treatmentId = parseToObjectId(cartItem.id);
+        const treatment = await db.collection('treatments').findOne({_id: treatmentId});
+        return ({
+          ...cartItem,
+          treatmentDetails: mapId(treatment)
+        });
+      }
+    }));
+    
+    res.send(cartDetailed).end();
+  });
+  
+  app.post('/cart', async(req, res) => {
+    const currentCart = req.session.cart || [];
+
+    if (req.body.itemType === "NewRoomCartItem") {
+      const { id, itemType, reservationFrom, reservationTo } = req.body;
+      const newCartItem = {
+        id,
+        itemType,
+        reservationFrom,
+        reservationTo
+      }
+
+      const isItemInCart = currentCart.some(({id, itemType}) => id === newCartItem.id && itemType === newCartItem.itemType);
+      if (isItemInCart) {
+        res.send(400).end();
+        return;
+      }
+
+      req.session.cart =  [...currentCart, newCartItem]
+      res.send(201).end();
+      return;
+
+    } else if (req.body.itemType === "NewTreatmentCartItem") {
+      const { id, itemType, quantity } = req.body;
+      const newCartItem = {
+        id,
+        itemType,
+        quantity
+      }
+
+      const isItemInCart = currentCart.some(({id}) => id === newCartItem.id && itemType === newCartItem.itemType);
+
+      if (isItemInCart) {
+        req.session.cart.quantity = currentCart.quantity + newCartItem.quantity;
+        res.status(201).end();
+        return;
+      }
+
+      req.session.cart =  [...currentCart, newCartItem]
+      res.status(201).end();
+
+    } else {
+      res.status(400).end();
+      return;
+    }
+  })
+
+  app.delete('/cart/:id', async(req, res) => {
+    const newCart = req.session.cart.filter(({id}) => id !== req.params.id);
+    req.session.cart = newCart;
+    res.status(200).end();
+  })
+
+  app.put('/cart/:id', async(req, res) => {
+    const indexToBeChanged = req.session.cart.findIndex(({id}) => id === req.params.id);
+
+    if (indexToBeChanged === -1) {
+      res.status(400).end();
+      return;
+    }
+
+    const itemToBeChanged = req.session.cart[indexToBeChanged];
+    if (itemToBeChanged.itemType === "NewTreatmentCartItem") {
+      itemToBeChanged.quantity = req.body.quantity;
+      res.status(200).end();
+      return;
+    } else {
+      if (req.body.reservationFrom) {
+        itemToBeChanged.reservationFrom = req.body.reservationFrom;
+      }
+      if (req.body.reservationTo) {
+        itemToBeChanged.reservationTo = req.body.reservationTo;
+      }
+      res.status(200).end();
+      return;
+    }
   })
 
   const port = process.env.PORT || 3000;
