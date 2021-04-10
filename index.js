@@ -107,7 +107,6 @@ client.connect().then( client => {
     const currentCart = req.session.cart || [];
     const cartDetailed = await Promise.all(currentCart.map( async (cartItem) => {
       if (cartItem.itemType === "NewRoomCartItem") {
-        console.log("abc");
         const roomId = parseToObjectId(cartItem.id);
         const room = await db.collection('rooms').findOne({_id: roomId});
         return ({
@@ -203,6 +202,29 @@ client.connect().then( client => {
       res.status(200).end();
       return;
     }
+  })
+
+  app.post('/reservations', async (req, res) => {
+    if (!req.session.userId) {
+      res.status(400).end();
+      return;
+    }
+    const reservation = {
+      createdAt: new Date().toISOString(),
+      items: req.session.cart
+    };
+    req.session.cart.length > 0 && await db.collection('reservations').insertOne(reservation);
+    req.session.cart = [];
+    res.status(201).end();
+  })
+
+  app.get('/reservations', async (req, res) => {
+    if (!req.session.userId) {
+      res.status(400).end();
+      return;
+    }
+    const reservations = await db.collection('reservations').find().toArray();
+    res.send(reservations.map(mapId)).end();
   })
 
   const port = process.env.PORT || 3000;
