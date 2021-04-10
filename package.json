@@ -17,6 +17,11 @@
     "mongodb": "^3.6.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "nodemon": "^2.0.7",
+    "prettier": "2.2.1"
   }
 }
