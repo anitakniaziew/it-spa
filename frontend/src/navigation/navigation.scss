@@ -1,0 +1,30 @@
+.nav {
+  height: 90px;
+  background-color: peachpuff;
+  padding: 0 1rem;
+
+  .logo-img {
+    margin-right: 0.5rem;
+  }
+
+  .name {
+    color: plum;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  &-btn {
+    border: none;
+    border-radius: 4px;
+    color: white;
+    margin: 0.2rem;
+    background: plum;
+    padding: 1rem;
+    text-transform: uppercase;
+
+    &:hover {
+      background: gainsboro;
+      color: gray;
+    }
+  }
+}
