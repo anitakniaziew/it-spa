@@ -1,5 +1,6 @@
 import axios from 'axios';
 import createElement from '../../helpers/createElement';
+import img from '../../components/img';
 
 const roomsDetail = ({ roomId }) => {
   const fragment = document.createDocumentFragment();
@@ -10,7 +11,7 @@ const roomsDetail = ({ roomId }) => {
   axios.get(`http://localhost:3000/rooms/${roomId}`)
     .then((response) => response.data)
     .then(({
-      name, description, beds, guests, price,
+      name, description, beds, guests, price, photos,
     }) => {
       const article = createElement('article', {
         children: [
@@ -34,6 +35,7 @@ const roomsDetail = ({ roomId }) => {
               `${price.toFixed(2)} zł`,
             ],
           }),
+          createElement('div', { children: photos.map((photo) => img(['abc'], photo, 400, 250)) }),
         ],
       });
 

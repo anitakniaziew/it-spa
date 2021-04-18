@@ -25,6 +25,20 @@ const mapId = ({ _id, ...rest }) => ({
   ...rest,
 });
 
+const prefixPhoto = (path) =>
+  `https://it-spa.s3.eu-central-1.amazonaws.com/${path}`;
+
+const mapRoomPhotos = ({ coverPhoto, photos, ...rest }) => ({
+  coverPhoto: prefixPhoto(`rooms/${coverPhoto}`),
+  photos: photos.map((photo) => prefixPhoto(`rooms/${photo}`)),
+  ...rest,
+});
+
+const mapTreatmentPhotos = ({ coverPhoto, ...rest }) => ({
+  coverPhoto: prefixPhoto(`rooms/${coverPhoto}`),
+  ...rest,
+});
+
 const parseToObjectId = (id) => {
   try {
     return ObjectId(id);
@@ -75,7 +89,7 @@ client.connect().then((client) => {
 
   app.get('/rooms', async (req, res) => {
     const rooms = await db.collection('rooms').find().toArray();
-    const parsedRooms = rooms.map(mapId);
+    const parsedRooms = rooms.map(mapId).map(mapRoomPhotos);
     res.send(parsedRooms).end();
   });
 
@@ -83,7 +97,8 @@ client.connect().then((client) => {
     const roomId = parseToObjectId(req.params.id);
     const room = await db.collection('rooms').findOne({ _id: roomId });
     if (room) {
-      const parsedRoom = mapId(room);
+      let parsedRoom = mapId(room);
+      parsedRoom = mapRoomPhotos(room);
       res.send(parsedRoom).end();
       return;
     }
@@ -92,7 +107,7 @@ client.connect().then((client) => {
 
   app.get('/treatments', async (req, res) => {
     const treatments = await db.collection('treatments').find().toArray();
-    const parsedTreatments = treatments.map(mapId);
+    const parsedTreatments = treatments.map(mapId).map(mapTreatmentPhotos);
     res.send(parsedTreatments).end();
   });
 
@@ -102,7 +117,8 @@ client.connect().then((client) => {
       .collection('treatments')
       .findOne({ _id: treatmentId });
     if (treatment) {
-      const parsedTreatment = mapId(treatment);
+      let parsedTreatment = mapId(treatment);
+      parsedTreatment = mapTreatmentPhotos(treatment);
       res.send(parsedTreatment).end();
       return;
     }

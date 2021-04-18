@@ -1,6 +1,7 @@
 import axios from 'axios';
 import createElement from '../../helpers/createElement';
 import loader from '../../components/loader';
+import img from '../../components/img';
 
 const rooms = () => {
   const fragment = document.createDocumentFragment();
@@ -16,10 +17,11 @@ const rooms = () => {
     .then((response) => response.data)
     .then((rooms) => {
       const articles = rooms.map(({
-        id, name, beds, guests, price,
+        id, name, beds, guests, price, coverPhoto,
       }) => {
         const article = createElement('article', {
           children: [
+            img(['cover-img'], coverPhoto, 400, 250),
             createElement('h4', { children: [name] }),
             createElement('p', {
               children: [createStrong('Beds: '), beds],
