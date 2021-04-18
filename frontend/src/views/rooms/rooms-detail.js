@@ -1,7 +1,7 @@
 import axios from 'axios';
 import createElement from '../../helpers/createElement';
 
-const roomsDetail = (roomId) => {
+const roomsDetail = ({ roomId }) => {
   const fragment = document.createDocumentFragment();
   const section = createElement('section', {
     children: ['Loading...'],

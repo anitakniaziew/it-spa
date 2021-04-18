@@ -41,7 +41,9 @@ const rooms = () => {
           const navigationEvent = new CustomEvent('navigation', {
             detail: {
               view: 'rooms-detail',
-              roomId: id,
+              params: {
+                roomId: id,
+              },
             },
           });
 
