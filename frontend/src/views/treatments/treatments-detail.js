@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import img from '../../components/img';
 
@@ -8,7 +8,7 @@ const treatmentsDetail = ({ treatmentId }) => {
     children: ['Loading...'],
   });
 
-  axios.get(`http://localhost:3000/treatments/${treatmentId}`)
+  apiClient.get(`/treatments/${treatmentId}`)
     .then((response) => response.data)
     .then(({
       name, description, area, time, price, coverPhoto,

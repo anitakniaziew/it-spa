@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import loader from '../../components/loader';
 import img from '../../components/img';
@@ -13,7 +13,7 @@ const rooms = () => {
 
   fragment.append(h2, section);
 
-  axios.get('http://localhost:3000/rooms')
+  apiClient.get('/rooms')
     .then((response) => response.data)
     .then((rooms) => {
       const articles = rooms.map(({

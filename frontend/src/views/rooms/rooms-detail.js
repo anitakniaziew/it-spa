@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import img from '../../components/img';
 
@@ -8,7 +8,7 @@ const roomsDetail = ({ roomId }) => {
     children: ['Loading...'],
   });
 
-  axios.get(`http://localhost:3000/rooms/${roomId}`)
+  apiClient.get(`/rooms/${roomId}`)
     .then((response) => response.data)
     .then(({
       name, description, beds, guests, price, photos,

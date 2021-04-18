@@ -1,7 +1,8 @@
-import axios from 'axios';
+import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import loader from '../../components/loader';
 import img from '../../components/img';
+import button from '../../components/button';
 
 const treatments = () => {
   const fragment = document.createDocumentFragment();
@@ -13,7 +14,7 @@ const treatments = () => {
 
   fragment.append(h2, section);
 
-  axios.get('http://localhost:3000/treatments')
+  apiClient.get('/treatments')
     .then((response) => response.data)
     .then((treatments) => {
       const articles = treatments.map(({
@@ -51,8 +52,19 @@ const treatments = () => {
 
           document.dispatchEvent(navigationEvent);
         });
+        const div = createElement('div');
 
-        return article;
+        const btn = button('Dodaj do koszyka', ['cart-btn'],
+          () => apiClient.post('/cart', {
+            id,
+            itemType: 'NewTreatmentCartItem',
+            quantity: 1,
+          }, { withCredentials: true }));
+
+        div.append(article);
+        div.append(btn);
+
+        return div;
       });
 
       section.innerHTML = '';
