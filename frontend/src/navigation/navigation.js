@@ -6,9 +6,10 @@ import './navigation.scss';
 
 const navItems = ['home', 'rooms', 'treatments'];
 
-const createNavigationEvent = (view) => new CustomEvent('navigation', {
+const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation', {
   detail: {
     view,
+    params,
   },
 });
 
