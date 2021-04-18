@@ -35,7 +35,7 @@ const mapRoomPhotos = ({ coverPhoto, photos, ...rest }) => ({
 });
 
 const mapTreatmentPhotos = ({ coverPhoto, ...rest }) => ({
-  coverPhoto: prefixPhoto(`rooms/${coverPhoto}`),
+  coverPhoto: prefixPhoto(`treatments/${coverPhoto}`),
   ...rest,
 });
 

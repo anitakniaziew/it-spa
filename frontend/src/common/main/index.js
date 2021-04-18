@@ -1,4 +1,6 @@
-import { home, rooms, roomsDetail } from '../../views';
+import {
+  home, rooms, roomsDetail, treatments, treatmentsDetail,
+} from '../../views';
 import createElement from '../../helpers/createElement';
 import './main.scss';
 
@@ -6,6 +8,8 @@ const views = new Map([
   ['home', home],
   ['rooms', rooms],
   ['rooms-detail', roomsDetail],
+  ['treatments', treatments],
+  ['treatments-detail', treatmentsDetail],
 ]);
 
 const main = () => {
