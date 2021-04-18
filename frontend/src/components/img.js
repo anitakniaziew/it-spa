@@ -1,4 +1,4 @@
-import createElement from '../../helpers/createElement';
+import createElement from '../helpers/createElement';
 
 const image = (classNames, src, width, height) => {
   const img = createElement('img', { classNames });

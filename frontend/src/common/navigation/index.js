@@ -1,7 +1,7 @@
-import createElement from '../helpers/createElement';
-import button from '../common/atoms/button';
-import image from '../common/atoms/img';
-import logo from '../assets/img/logo.png';
+import createElement from '../../helpers/createElement';
+import button from '../../components/button';
+import image from '../../components/img';
+import logo from '../../assets/img/logo.png';
 import './navigation.scss';
 
 const navItems = ['home', 'rooms', 'treatments'];

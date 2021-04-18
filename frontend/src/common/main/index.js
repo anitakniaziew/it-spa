@@ -1,5 +1,5 @@
-import { home, rooms, roomsDetail } from '../views';
-import createElement from '../helpers/createElement';
+import { home, rooms, roomsDetail } from '../../views';
+import createElement from '../../helpers/createElement';
 import './main.scss';
 
 const views = new Map([

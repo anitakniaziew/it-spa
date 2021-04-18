@@ -1,6 +1,6 @@
 import axios from 'axios';
 import createElement from '../../helpers/createElement';
-import loader from '../../common/atoms/loader';
+import loader from '../../components/loader';
 
 const rooms = () => {
   const fragment = document.createDocumentFragment();

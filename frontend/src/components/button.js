@@ -1,4 +1,4 @@
-import createElement from '../../helpers/createElement';
+import createElement from '../helpers/createElement';
 
 const button = (text, classNames, onClick) => {
   const btn = createElement('button', { classNames, children: [text] });

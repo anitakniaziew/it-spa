@@ -1,4 +1,4 @@
-import createElement from '../../helpers/createElement';
+import createElement from '../helpers/createElement';
 
 const div = (classNames) => createElement('div', { classNames });
 const span = (classNames) => createElement('span', { classNames });
