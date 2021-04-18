@@ -1,4 +1,4 @@
-const createElement = (tagName, { classNames, children }) => {
+const createElement = (tagName, { classNames = [], children } = {}) => {
   const el = document.createElement(tagName);
 
   classNames?.forEach((className) => el.classList.add(className));

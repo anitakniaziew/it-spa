@@ -2,6 +2,7 @@ import createElement from '../../helpers/createElement';
 import button from '../../components/button';
 import image from '../../components/img';
 import logo from '../../assets/img/logo.png';
+import cart from '../../assets/img/cart.svg';
 import './navigation.scss';
 
 const navItems = ['home', 'rooms', 'treatments'];
@@ -30,10 +31,17 @@ const navigation = () => {
     children: buttons,
   });
 
+  const cartImg = image(['cart'], cart, 25, 25);
+
+  const cartButton = button(cartImg, ['nav-btn'], (event) => {
+    event.preventDefault();
+    document.dispatchEvent(createNavigationEvent('cart'));
+  });
+
   const nav = createElement('nav', {
     classNames: ['nav', 'justify-content-between', 'align-items-center'],
     children: [
-      spaLogo, buttonsContainer,
+      spaLogo, buttonsContainer, cartButton,
     ],
   });
 

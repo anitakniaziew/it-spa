@@ -7,7 +7,12 @@ const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:9000',
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(
   session({
@@ -141,9 +146,11 @@ client.connect().then((client) => {
         const treatment = await db
           .collection('treatments')
           .findOne({ _id: treatmentId });
+        let parsedTreatment = mapId(treatment);
+        parsedTreatment = mapTreatmentPhotos(treatment);
         return {
           ...cartItem,
-          treatmentDetails: mapId(treatment),
+          treatmentDetails: parsedTreatment,
         };
       }),
     );
