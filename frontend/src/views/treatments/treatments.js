@@ -3,16 +3,17 @@ import createElement from '../../helpers/createElement';
 import loader from '../../components/loader';
 import img from '../../components/img';
 import button from '../../components/button';
+import pageTitle from '../../components/pageTitle';
 
 const treatments = () => {
   const fragment = document.createDocumentFragment();
-  const h2 = createElement('h2', { children: ['Oferta zabiegów'] });
+  const title = pageTitle('Oferta zabiegów');
   const createStrong = (text) => createElement('strong', { children: [text] });
   const section = createElement('section', {
     children: [loader()],
   });
 
-  fragment.append(h2, section);
+  fragment.append(title, section);
 
   apiClient.get('/treatments')
     .then((response) => response.data)

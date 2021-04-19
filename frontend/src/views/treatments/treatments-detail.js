@@ -1,12 +1,17 @@
 import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import img from '../../components/img';
+import pageTitle from '../../components/pageTitle';
+import loader from '../../components/loader';
 
 const treatmentsDetail = ({ treatmentId }) => {
   const fragment = document.createDocumentFragment();
+  const title = pageTitle('Szczegóły');
   const section = createElement('section', {
-    children: ['Loading...'],
+    children: [loader()],
   });
+
+  fragment.append(title, section);
 
   apiClient.get(`/treatments/${treatmentId}`)
     .then((response) => response.data)
@@ -42,8 +47,6 @@ const treatmentsDetail = ({ treatmentId }) => {
       section.innerHTML = '';
       section.append(article);
     });
-
-  fragment.append(section);
 
   return fragment;
 };
