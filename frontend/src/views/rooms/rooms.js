@@ -2,16 +2,17 @@ import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import loader from '../../components/loader';
 import img from '../../components/img';
+import pageTitle from '../../components/pageTitle';
+import roomParameters from './roomParameters';
 
 const rooms = () => {
   const fragment = document.createDocumentFragment();
-  const h2 = createElement('h2', { children: ['Pokoje'] });
-  const createStrong = (text) => createElement('strong', { children: [text] });
+  const title = pageTitle('Pokoje');
   const section = createElement('section', {
     children: [loader()],
   });
 
-  fragment.append(h2, section);
+  fragment.append(title, section);
 
   apiClient.get('/rooms')
     .then((response) => response.data)
@@ -23,18 +24,7 @@ const rooms = () => {
           children: [
             img(['cover-img'], coverPhoto, 400, 250),
             createElement('h4', { children: [name] }),
-            createElement('p', {
-              children: [createStrong('Łóżka: '), beds],
-            }),
-            createElement('p', {
-              children: [createStrong('Liczba gości: '), guests],
-            }),
-            createElement('p', {
-              children: [
-                createStrong('Price: '),
-                `${price.toFixed(2)} zł / noc`,
-              ],
-            }),
+            roomParameters(beds, guests, price),
           ],
         });
 
