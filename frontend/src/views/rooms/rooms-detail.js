@@ -1,6 +1,6 @@
+import img from '../../components/img';
 import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
-import img from '../../components/img';
 
 const roomsDetail = ({ roomId }) => {
   const fragment = document.createDocumentFragment();
@@ -19,20 +19,18 @@ const roomsDetail = ({ roomId }) => {
           createElement('p', { children: [description] }),
           createElement('p', {
             children: [
-              createElement('strong', { children: ['Beds: '] }),
+              createElement('strong', { children: ['Łóżka: '] }),
               beds,
             ],
           }),
           createElement('p', {
             children: [
-              createElement('strong', { children: ['Guests: '] }),
-              guests,
+              createElement('strong', { children: ['Liczba gości: '] }), guests,
             ],
           }),
           createElement('p', {
             children: [
-              createElement('strong', { children: ['Price: '] }),
-              `${price.toFixed(2)} zł`,
+              createElement('strong', { children: [`${price.toFixed(2)} zł / noc`] }),
             ],
           }),
           createElement('div', { children: photos.map((photo) => img(['abc'], photo, 400, 250)) }),

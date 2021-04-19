@@ -5,7 +5,7 @@ import logo from '../../assets/img/logo.png';
 import cart from '../../assets/img/cart.svg';
 import './navigation.scss';
 
-const navItems = ['home', 'rooms', 'treatments'];
+const navItems = [{ rooms: 'pokoje' }, { treatments: 'zabiegi' }];
 
 const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation', {
   detail: {
@@ -15,15 +15,16 @@ const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation
 });
 
 const navigation = () => {
-  const img = image(['logo-img'], logo, 120, 90);
+  const spaLogo = image(['logo-img'], logo, 120, 90);
 
-  const name = createElement('h1', { classNames: ['name'], children: ['IT-SPA'] });
-
-  const spaLogo = createElement('div', { classNames: ['d-flex', 'flex-row', 'justify-content-center', 'align-items-center'], children: [img, name] });
-
-  const buttons = navItems.map((item) => button(item, ['nav-btn'], (event) => {
+  const homeButton = button(spaLogo, ['btn'], (event) => {
     event.preventDefault();
-    document.dispatchEvent(createNavigationEvent(item));
+    document.dispatchEvent(createNavigationEvent('home'));
+  });
+
+  const buttons = navItems.map((item) => button(Object.values(item), ['nav-btn'], (event) => {
+    event.preventDefault();
+    document.dispatchEvent(createNavigationEvent(Object.keys(item)[0]));
   }));
 
   const buttonsContainer = createElement('div', {
@@ -41,7 +42,7 @@ const navigation = () => {
   const nav = createElement('nav', {
     classNames: ['nav', 'justify-content-between', 'align-items-center'],
     children: [
-      spaLogo, buttonsContainer, cartButton,
+      homeButton, buttonsContainer, cartButton,
     ],
   });
 

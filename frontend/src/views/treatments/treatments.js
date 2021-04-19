@@ -6,7 +6,7 @@ import button from '../../components/button';
 
 const treatments = () => {
   const fragment = document.createDocumentFragment();
-  const h2 = createElement('h2', { children: ['Treatments'] });
+  const h2 = createElement('h2', { children: ['Oferta zabiegów'] });
   const createStrong = (text) => createElement('strong', { children: [text] });
   const section = createElement('section', {
     children: [loader()],
@@ -25,10 +25,10 @@ const treatments = () => {
             img(['cover-img'], coverPhoto, 300, 250),
             createElement('h4', { children: [name] }),
             createElement('p', {
-              children: [createStrong('Area: '), area],
+              children: [createStrong('Obszar ciała: '), area],
             }),
             createElement('p', {
-              children: [createStrong('Time: '), time],
+              children: [createStrong('Czas: '), `${time} min.`],
             }),
             createElement('p', {
               children: [

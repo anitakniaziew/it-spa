@@ -5,7 +5,7 @@ import img from '../../components/img';
 
 const rooms = () => {
   const fragment = document.createDocumentFragment();
-  const h2 = createElement('h2', { children: ['Rooms'] });
+  const h2 = createElement('h2', { children: ['Pokoje'] });
   const createStrong = (text) => createElement('strong', { children: [text] });
   const section = createElement('section', {
     children: [loader()],
@@ -24,15 +24,15 @@ const rooms = () => {
             img(['cover-img'], coverPhoto, 400, 250),
             createElement('h4', { children: [name] }),
             createElement('p', {
-              children: [createStrong('Beds: '), beds],
+              children: [createStrong('Łóżka: '), beds],
             }),
             createElement('p', {
-              children: [createStrong('Guests: '), guests],
+              children: [createStrong('Liczba gości: '), guests],
             }),
             createElement('p', {
               children: [
                 createStrong('Price: '),
-                `${price.toFixed(2)} zł`,
+                `${price.toFixed(2)} zł / noc`,
               ],
             }),
           ],
