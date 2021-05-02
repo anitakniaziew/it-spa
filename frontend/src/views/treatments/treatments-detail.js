@@ -2,6 +2,7 @@ import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import img from '../../components/img';
 import pageTitle from '../../components/pageTitle';
+import button from '../../components/button';
 import loader from '../../components/loader';
 
 const treatmentsDetail = ({ treatmentId }) => {
@@ -44,8 +45,15 @@ const treatmentsDetail = ({ treatmentId }) => {
         ],
       });
 
+      const btn = button('Dodaj do koszyka', ['cart-btn'],
+        () => apiClient.post('/cart', {
+          id: treatmentId,
+          itemType: 'treatmentCartItem',
+          quantity: 1,
+        }));
+
       section.innerHTML = '';
-      section.append(article);
+      section.append(article, btn);
     });
 
   return fragment;
