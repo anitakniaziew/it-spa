@@ -225,7 +225,7 @@ client.connect().then((client) => {
     }
 
     const itemToBeChanged = req.session.cart[indexToBeChanged];
-    if (itemToBeChanged.itemType === 'TreatmentCartItem') {
+    if (itemToBeChanged.itemType === 'treatmentCartItem') {
       itemToBeChanged.quantity = req.body.quantity;
       res.status(200).end();
     } else {

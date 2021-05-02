@@ -26,19 +26,19 @@ const treatmentsDetail = ({ treatmentId }) => {
           createElement('p', { children: [description] }),
           createElement('p', {
             children: [
-              createElement('strong', { children: ['Area: '] }),
+              createElement('strong', { children: ['Obsza ciała: '] }),
               area,
             ],
           }),
           createElement('p', {
             children: [
-              createElement('strong', { children: ['Time: '] }),
+              createElement('strong', { children: ['Czas: '] }),
               time,
             ],
           }),
           createElement('p', {
             children: [
-              createElement('strong', { children: ['Price: '] }),
+              createElement('strong', { children: ['Cena: '] }),
               `${price.toFixed(2)} zł`,
             ],
           }),
