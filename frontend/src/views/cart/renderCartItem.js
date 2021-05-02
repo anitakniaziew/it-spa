@@ -6,25 +6,45 @@ import button from '../../components/button';
 const createStrong = (text) => createElement('strong', { children: [text] });
 
 const renderTreatmentCartItem = (cartItem) => {
-  const { id, quantity } = cartItem;
+  const { id } = cartItem;
+  let { quantity } = cartItem;
   const {
     name, price, coverPhoto,
   } = cartItem.treatmentDetails;
 
-  const increaseQuantity = () => {
+  const quantityContainer = createElement('p', {
+    classNames: ['quantity'],
+    children: [createStrong('Ilość: '), quantity],
+  });
+  const sumContainer = createElement('p', {
+    children: [
+      createStrong('Razem: '),
+      `${(price * quantity).toFixed(2)} zł`,
+    ],
+  });
+
+  const updateQuantity = () => {
     apiClient.put(`/cart/${id}`, {
       id,
       itemType: 'treatmentCartItem',
-      quantity: quantity + 1,
+      quantity,
     });
+    quantityContainer.innerHTML = '';
+    quantityContainer.append(createStrong('Ilość: '), quantity);
+    sumContainer.innerHTML = '';
+    sumContainer.append(createStrong('Razem: '),
+      `${(price * quantity).toFixed(2)} zł`);
+  };
+
+  const increaseQuantity = () => {
+    quantity += 1;
+    updateQuantity();
   };
 
   const decreaseQuantity = () => {
-    apiClient.put(`/cart/${id}`, {
-      id,
-      itemType: 'treatmentCartItem',
-      quantity: quantity - 1,
-    });
+    if (quantity === 1) return;
+    quantity -= 1;
+    updateQuantity();
   };
 
   const removeCartItem = () => {
@@ -39,10 +59,7 @@ const renderTreatmentCartItem = (cartItem) => {
     children: [
       img(['cover-img'], coverPhoto, 400, 250),
       createElement('h2', { children: [name] }),
-      createElement('p', {
-        classNames: ['quantity'],
-        children: [createStrong('Ilość: '), quantity],
-      }),
+      quantityContainer,
       createElement('div', {
         classNames: ['buttons'],
         children: [
@@ -56,12 +73,7 @@ const renderTreatmentCartItem = (cartItem) => {
           `${price.toFixed(2)} zł`,
         ],
       }),
-      createElement('p', {
-        children: [
-          createStrong('Razem: '),
-          `${(price * quantity).toFixed(2)} zł`,
-        ],
-      }),
+      sumContainer,
       button('x', ['btn-remove-cart-item'], removeCartItem),
     ],
   });
