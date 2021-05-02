@@ -134,12 +134,14 @@ client.connect().then((client) => {
     const currentCart = req.session.cart || [];
     const cartDetailed = await Promise.all(
       currentCart.map(async (cartItem) => {
-        if (cartItem.itemType === 'NewRoomCartItem') {
+        if (cartItem.itemType === 'roomCartItem') {
           const roomId = parseToObjectId(cartItem.id);
           const room = await db.collection('rooms').findOne({ _id: roomId });
+          let parsedRoom = mapId(room);
+          parsedRoom = mapRoomPhotos(room);
           return {
             ...cartItem,
-            roomDetails: mapId(room),
+            roomDetails: parsedRoom,
           };
         }
         const treatmentId = parseToObjectId(cartItem.id);
@@ -161,7 +163,7 @@ client.connect().then((client) => {
   app.post('/cart', async (req, res) => {
     const currentCart = req.session.cart || [];
 
-    if (req.body.itemType === 'NewRoomCartItem') {
+    if (req.body.itemType === 'roomCartItem') {
       const { id, itemType, reservationFrom, reservationTo } = req.body;
       const newCartItem = {
         id,
@@ -181,7 +183,7 @@ client.connect().then((client) => {
 
       req.session.cart = [...currentCart, newCartItem];
       res.send(201).end();
-    } else if (req.body.itemType === 'NewTreatmentCartItem') {
+    } else if (req.body.itemType === 'treatmentCartItem') {
       const { id, itemType, quantity } = req.body;
       const newCartItem = {
         id,
@@ -223,7 +225,7 @@ client.connect().then((client) => {
     }
 
     const itemToBeChanged = req.session.cart[indexToBeChanged];
-    if (itemToBeChanged.itemType === 'NewTreatmentCartItem') {
+    if (itemToBeChanged.itemType === 'TreatmentCartItem') {
       itemToBeChanged.quantity = req.body.quantity;
       res.status(200).end();
     } else {

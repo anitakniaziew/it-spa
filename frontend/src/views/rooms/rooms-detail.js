@@ -1,7 +1,9 @@
+import apiClient from '../../helpers/apiClient';
+import button from '../../components/button';
 import img from '../../components/img';
 import loader from '../../components/loader';
+import dateInput from '../../components/dateInput';
 import pageTitle from '../../components/pageTitle';
-import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import roomParameters from './roomParameters';
 
@@ -31,6 +33,26 @@ const roomsDetail = ({ roomId }) => {
       section.innerHTML = '';
       section.append(article);
     });
+
+  const handleBooking = () => {
+    apiClient.post('/cart', {
+      id: roomId,
+      itemType: 'roomCartItem',
+      reservationFrom: document.getElementById('reservation-start').value,
+      reservationTo: document.getElementById('reservation-end').value,
+    });
+  };
+
+  const reservationForm = createElement('form', {
+    classNames: ['reservation-from'],
+    children: [
+      dateInput('Data początkowa:', 'reservation-start'),
+      dateInput('Data końcowa:', 'reservation-end'),
+      button('Rezerwuj', ['secondary-btn'], handleBooking),
+    ],
+  });
+
+  fragment.append(reservationForm);
 
   return fragment;
 };

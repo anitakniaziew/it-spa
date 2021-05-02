@@ -58,9 +58,9 @@ const treatments = () => {
         const btn = button('Dodaj do koszyka', ['cart-btn'],
           () => apiClient.post('/cart', {
             id,
-            itemType: 'NewTreatmentCartItem',
+            itemType: 'treatmentCartItem',
             quantity: 1,
-          }, { withCredentials: true }));
+          }));
 
         div.append(article);
         div.append(btn);
