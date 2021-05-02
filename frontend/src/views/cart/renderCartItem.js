@@ -27,11 +27,20 @@ const renderTreatmentCartItem = (cartItem) => {
     });
   };
 
+  const removeCartItem = () => {
+    apiClient.delete(`/cart/${id}`, {
+      id,
+    });
+    document.getElementById(id).remove();
+  };
+
   const article = createElement('article', {
+    classNames: [id],
     children: [
       img(['cover-img'], coverPhoto, 400, 250),
       createElement('h2', { children: [name] }),
       createElement('p', {
+        classNames: ['quantity'],
         children: [createStrong('Ilość: '), quantity],
       }),
       createElement('div', {
@@ -53,17 +62,26 @@ const renderTreatmentCartItem = (cartItem) => {
           `${(price * quantity).toFixed(2)} zł`,
         ],
       }),
+      button('x', ['btn-remove-cart-item'], removeCartItem),
     ],
   });
 
+  article.id = id;
   return article;
 };
 
 const renderRoomCartItem = (cartItem) => {
-  const { reservationFrom, reservationTo } = cartItem;
+  const { id, reservationFrom, reservationTo } = cartItem;
   const {
     name, price, coverPhoto,
   } = cartItem.roomDetails;
+
+  const removeCartItem = () => {
+    apiClient.delete(`/cart/${id}`, {
+      id,
+    });
+    document.getElementById(id).remove();
+  };
 
   const article = createElement('article', {
     children: [
@@ -81,9 +99,11 @@ const renderRoomCartItem = (cartItem) => {
           `${price.toFixed(2)} zł`,
         ],
       }),
+      button('x', ['btn-remove-cart-item'], removeCartItem),
     ],
   });
 
+  article.id = id;
   return article;
 };
 
