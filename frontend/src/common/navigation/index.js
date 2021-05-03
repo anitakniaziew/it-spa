@@ -1,3 +1,4 @@
+import { showCartPreview, hideCartPreview } from '../cartPreview/cartPreview';
 import createElement from '../../helpers/createElement';
 import button from '../../components/button';
 import image from '../../components/img';
@@ -15,7 +16,7 @@ const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation
 });
 
 const navigation = () => {
-  const spaLogo = image(['logo-img'], logo, 120, 90);
+  const spaLogo = image(['logo-img'], logo, 60, 45);
 
   const homeButton = button(spaLogo, ['btn'], (event) => {
     event.preventDefault();
@@ -37,7 +38,7 @@ const navigation = () => {
   const cartButton = button(cartImg, ['nav-btn'], (event) => {
     event.preventDefault();
     document.dispatchEvent(createNavigationEvent('cart'));
-  });
+  }, showCartPreview, hideCartPreview);
 
   const nav = createElement('nav', {
     classNames: ['nav', 'justify-content-between', 'align-items-center'],

@@ -1,7 +1,9 @@
 .nav {
-  height: 90px;
+  height: 60px;
   background-color: peachpuff;
-  padding: 0 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 
   .logo-img {
     margin-right: 0.5rem;
@@ -17,13 +19,15 @@
     border: none;
     border-radius: 4px;
     color: white;
-    margin: 0.2rem;
-    background: plum;
-    padding: 1rem;
+    background: peachpuff;
+    padding: 1rem 2rem;
     text-transform: uppercase;
 
+    .cart-btn {
+      height: 100%;
+    }
+
     &:hover {
-      background: gainsboro;
       color: gray;
     }
   }

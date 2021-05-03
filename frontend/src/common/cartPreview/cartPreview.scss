@@ -1,0 +1,33 @@
+.cart-preview-container {
+  width: 20%;
+  position: fixed;
+  top: -100%;
+  right: 0;
+  animation: hide 1s ease-in-out;
+  z-index: 1;
+  background-color: whitesmoke;
+  padding: 1rem;
+}
+
+.cart-preview-container-active {
+  animation: show 1s ease-in-out;
+  top: 50px;
+}
+
+@keyframes show {
+  from {
+    top: -100%;
+  }
+  to {
+    top: 50px;
+  }
+}
+
+@keyframes hide {
+  from {
+    top: 50px;
+  }
+  to {
+    top: -100%;
+  }
+}
