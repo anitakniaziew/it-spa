@@ -5,6 +5,13 @@ import button from '../../components/button';
 
 const createStrong = (text) => createElement('strong', { children: [text] });
 
+const removeCartItem = (id) => {
+  apiClient.delete(`/cart/${id}`, {
+    id,
+  });
+  document.getElementById(id).remove();
+};
+
 const renderTreatmentCartItem = (cartItem) => {
   const { id } = cartItem;
   let { quantity } = cartItem;
@@ -47,13 +54,6 @@ const renderTreatmentCartItem = (cartItem) => {
     updateQuantity();
   };
 
-  const removeCartItem = () => {
-    apiClient.delete(`/cart/${id}`, {
-      id,
-    });
-    document.getElementById(id).remove();
-  };
-
   const article = createElement('article', {
     classNames: [id],
     children: [
@@ -74,7 +74,7 @@ const renderTreatmentCartItem = (cartItem) => {
         ],
       }),
       sumContainer,
-      button('x', ['btn-remove-cart-item'], removeCartItem),
+      button('x', ['btn-remove-cart-item'], () => removeCartItem(id)),
     ],
   });
 
@@ -87,13 +87,6 @@ const renderRoomCartItem = (cartItem) => {
   const {
     name, price, coverPhoto,
   } = cartItem.roomDetails;
-
-  const removeCartItem = () => {
-    apiClient.delete(`/cart/${id}`, {
-      id,
-    });
-    document.getElementById(id).remove();
-  };
 
   const article = createElement('article', {
     children: [
@@ -111,7 +104,7 @@ const renderRoomCartItem = (cartItem) => {
           `${price.toFixed(2)} zł`,
         ],
       }),
-      button('x', ['btn-remove-cart-item'], removeCartItem),
+      button('x', ['btn-remove-cart-item'], () => removeCartItem(id)),
     ],
   });
 

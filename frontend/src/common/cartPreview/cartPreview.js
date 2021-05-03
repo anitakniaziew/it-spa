@@ -11,14 +11,21 @@ const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation
   },
 });
 
-const renderPreviewCartItem = (cartItem) => {
+const removeCartItem = (id) => {
+  apiClient.delete(`/cart/${id}`, {
+    id,
+  });
+  document.getElementById(`previewItem-${id}`).remove();
+};
+
+const renderPreviewCartItem = (cartItem, onRemove) => {
   const { id, itemType } = cartItem;
   const {
     name, price, coverPhoto,
   } = cartItem.treatmentDetails || cartItem.roomDetails;
 
   const article = createElement('article', {
-    classNames: [id],
+    id: `previewItem-${id}`,
     children: [
       img(['cover-img'], coverPhoto, 100, 70),
       createElement('h6', { children: [name] }),
@@ -29,6 +36,9 @@ const renderPreviewCartItem = (cartItem) => {
         ? createElement('p', {
           children: [cartItem.quantity],
         }) : '',
+      button('x', ['btn-remove-cart-item'], () => {
+        onRemove(id);
+      }),
     ],
   });
 
@@ -42,7 +52,10 @@ const refreshCartContent = () => {
   apiClient.get('/cart')
     .then((response) => response.data)
     .then((cartItems) => {
-      const articles = cartItems.map((cartItem) => renderPreviewCartItem(cartItem));
+      const articles = cartItems.map((cartItem) => renderPreviewCartItem(cartItem, (id) => {
+        removeCartItem(id);
+        refreshCartContent();
+      }));
       articles.forEach((article) => cartItemsContainer.append(article));
     });
 };
