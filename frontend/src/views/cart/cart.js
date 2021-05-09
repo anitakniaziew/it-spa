@@ -1,5 +1,6 @@
 import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
+import button from '../../components/button';
 import pageTitle from '../../components/pageTitle';
 import loader from '../../components/loader';
 import { renderRoomCartItem, renderTreatmentCartItem } from './renderCartItem';
@@ -35,6 +36,18 @@ const cart = () => {
 
       section.innerHTML = '';
       articles.forEach((article) => section.append(article));
+
+      const reservationButton = button('Zatwierdź rezerwację', ['nav-btn'], (event) => {
+        event.preventDefault();
+        try {
+          apiClient.post('/reservations');
+          document.dispatchEvent(createNavigationEvent('reservations'));
+        } catch {
+          document.dispatchEvent(createNavigationEvent('rooms'));
+        }
+      });
+
+      section.append(cartSummary, reservationButton);
     });
 
   fragment.append(pageTitle('Zawartość koszyka'), section);

@@ -4,3 +4,4 @@ export { default as roomsDetail } from './rooms/rooms-detail';
 export { default as treatments } from './treatments/treatments';
 export { default as treatmentsDetail } from './treatments/treatments-detail';
 export { default as cart } from './cart/cart';
+export { default as reservations } from './reservations/reservations';
