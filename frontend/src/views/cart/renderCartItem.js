@@ -5,10 +5,11 @@ import button from '../../components/button';
 
 const createStrong = (text) => createElement('strong', { children: [text] });
 
-const removeCartItem = (id) => {
+const removeCartItem = (id, price, quantity = 1) => {
   apiClient.delete(`/cart/${id}`, {
     id,
   });
+  document.getElementById('cartTotalValue').innerText -= price * quantity;
   document.getElementById(id).remove();
 };
 
@@ -74,7 +75,7 @@ const renderTreatmentCartItem = (cartItem) => {
         ],
       }),
       sumContainer,
-      button('x', ['btn-remove-cart-item'], () => removeCartItem(id)),
+      button('x', ['btn-remove-cart-item'], () => removeCartItem(id, price, quantity)),
     ],
   });
 
@@ -104,7 +105,7 @@ const renderRoomCartItem = (cartItem) => {
           `${price.toFixed(2)} zł`,
         ],
       }),
-      button('x', ['btn-remove-cart-item'], () => removeCartItem(id)),
+      button('x', ['btn-remove-cart-item'], () => removeCartItem(id, price)),
     ],
   });
 

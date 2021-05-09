@@ -3,6 +3,14 @@ import createElement from '../../helpers/createElement';
 import pageTitle from '../../components/pageTitle';
 import loader from '../../components/loader';
 import { renderRoomCartItem, renderTreatmentCartItem } from './renderCartItem';
+import { renderCartSummary } from './renderCartSummary';
+
+const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation', {
+  detail: {
+    view,
+    params,
+  },
+});
 
 const cart = () => {
   const fragment = document.createDocumentFragment();
@@ -13,6 +21,7 @@ const cart = () => {
   apiClient.get('/cart')
     .then((response) => response.data)
     .then((cartItems) => {
+      const cartSummary = renderCartSummary(cartItems);
       const articles = cartItems.map((cartItem) => {
         switch (cartItem.itemType) {
           case 'treatmentCartItem':

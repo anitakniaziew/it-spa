@@ -65,6 +65,8 @@ const addClassActive = () => {
 };
 
 const showCartPreview = () => {
+  const isCartOpen = document.getElementById('page-title')?.innerText === 'Zawartość koszyka';
+  if (isCartOpen) return;
   refreshCartContent();
   addClassActive();
 };
