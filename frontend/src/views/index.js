@@ -5,3 +5,5 @@ export { default as treatments } from './treatments/treatments';
 export { default as treatmentsDetail } from './treatments/treatments-detail';
 export { default as cart } from './cart/cart';
 export { default as reservations } from './reservations/reservations';
+export { default as login } from './login/login';
+export { default as registration } from './registration/registration';

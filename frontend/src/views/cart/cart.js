@@ -39,12 +39,9 @@ const cart = () => {
 
       const reservationButton = button('Zatwierdź rezerwację', ['nav-btn'], (event) => {
         event.preventDefault();
-        try {
-          apiClient.post('/reservations');
-          document.dispatchEvent(createNavigationEvent('reservations'));
-        } catch {
-          document.dispatchEvent(createNavigationEvent('rooms'));
-        }
+        apiClient.post('/reservations')
+          .then(document.dispatchEvent(createNavigationEvent('reservations')))
+          .catch(document.dispatchEvent(createNavigationEvent('login')));
       });
 
       section.append(cartSummary, reservationButton);

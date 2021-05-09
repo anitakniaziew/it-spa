@@ -1,3 +1,4 @@
+import apiClient from '../../helpers/apiClient';
 import { showCartPreview, hideCartPreview } from '../cartPreview/cartPreview';
 import createElement from '../../helpers/createElement';
 import button from '../../components/button';
@@ -13,6 +14,21 @@ const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation
     view,
     params,
   },
+});
+
+const loginButton = button('Zaloguj', ['nav-btn'], (event) => {
+  event.preventDefault();
+  document.dispatchEvent(createNavigationEvent('login'));
+});
+
+const logoutButton = button('Wyloguj', ['nav-btn'], () => {
+  apiClient.get('/logout')
+    .then(() => {
+      localStorage.removeItem('isUserLogged');
+      document.getElementById('login-wrapper').innerHTML = '';
+      document.getElementById('login-wrapper').append(loginButton);
+      alert('Wylogowano');
+    });
 });
 
 const navigation = () => {
@@ -40,14 +56,19 @@ const navigation = () => {
     document.dispatchEvent(createNavigationEvent('cart'));
   }, showCartPreview, hideCartPreview);
 
+  const loginWrapper = createElement('div', { id: 'login-wrapper' });
+
   const nav = createElement('nav', {
     classNames: ['nav', 'justify-content-between', 'align-items-center'],
     children: [
-      homeButton, buttonsContainer, cartButton,
+      homeButton, buttonsContainer, loginWrapper, cartButton,
     ],
   });
+
+  loginWrapper.append(localStorage.getItem('isUserLogged') ? logoutButton : loginButton);
 
   return nav;
 };
 
 export default navigation;
+export { logoutButton };
