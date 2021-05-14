@@ -27,7 +27,7 @@ const main = () => {
 
     section.innerHTML = '';
     const viewFn = views.get(view);
-    section.append(viewFn ? viewFn(params) : createElement('h1', { children: ['Something went wrong...'] }));
+    section.append(viewFn ? viewFn(params) : createElement('h1', { children: ['Ups... coś poszło nie tak. Spróbuj ponownie za chwilę.'] }));
   });
 
   return createElement('main', { classNames: ['main', 'd-flex', 'justify-content-center'], children: [section] });

@@ -1,7 +1,30 @@
+@import './styles/colors.scss';
+
 * {
   color: #13242b;
 }
 
 .page-title {
   text-align: center;
+}
+
+section {
+  width: 100%;
+}
+
+.btn-primary {
+  background-color: initial;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 2px solid $primary;
+  border-radius: 4px;
+  color: $primary;
+  padding: 0.7rem 1.6rem;
+  font-weight: 600;
+  margin: 0 3rem;
+
+  &:hover {
+    background-color: $primary;
+    border: 2px solid $primary;
+  }
 }

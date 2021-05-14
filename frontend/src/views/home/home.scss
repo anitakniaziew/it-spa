@@ -1,0 +1,36 @@
+@import url('hero.jpg');
+
+.hero {
+  background-image: url('hero.jpg');
+  background-color: rgb(110, 110, 110);
+  background-blend-mode: multiply;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: calc(100vh - 60px);
+  padding: 15rem;
+}
+
+.hero-greeting {
+  text-align: center;
+  align-self: center;
+
+  .hero-greeting-header {
+    color: white;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .hero-greeting-text {
+    letter-spacing: 1.5px;
+    color: white;
+    font-weight: 300;
+  }
+}
+
+.hero-btns {
+  margin-top: 1.5rem;
+}
