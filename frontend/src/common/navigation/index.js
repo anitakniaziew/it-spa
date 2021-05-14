@@ -4,18 +4,25 @@ import createElement from '../../helpers/createElement';
 import createNavigationEvent from '../../helpers/createNavigationEvent';
 import button from '../../components/button';
 import image from '../../components/img';
+import link from '../../components/link';
 import logo from '../../assets/img/logo.png';
+import menu from '../../assets/img/menu.svg';
+import close from '../../assets/img/close-menu.svg';
 import cart from '../../assets/img/cart.svg';
+import login from '../../assets/img/log-in.svg';
+import logout from '../../assets/img/log-out.svg';
+import calendar from '../../assets/img/reservations.svg';
+
 import './navigation.scss';
 
-const navItems = [{ rooms: 'pokoje' }, { treatments: 'zabiegi' }];
+const navItemsLabels = [{ home: 'strona główna' }, { rooms: 'pokoje' }, { treatments: 'zabiegi' }];
 
-const loginButton = button('Zaloguj', ['nav-btn'], (event) => {
+const loginButton = link(image(['icon-img'], login, 25, 25), ['nav-icon'], (event) => {
   event.preventDefault();
   document.dispatchEvent(createNavigationEvent('login'));
 });
 
-const logoutButton = button('Wyloguj', ['nav-btn'], () => {
+const logoutButton = link(image(['icon-img'], logout, 25, 25), ['nav-icon'], () => {
   apiClient.get('/logout')
     .then(() => {
       localStorage.removeItem('isUserLogged');
@@ -25,44 +32,84 @@ const logoutButton = button('Wyloguj', ['nav-btn'], () => {
     });
 });
 
-const navigation = () => {
-  const spaLogo = image(['logo-img'], logo, 60, 45);
+const reservations = link(image(['icon-img'], calendar, 25, 25), ['nav-icon'], (event) => {
+  event.preventDefault();
+  document.dispatchEvent(createNavigationEvent('reservations'));
+});
 
-  const homeButton = button(spaLogo, ['btn'], (event) => {
+const userIcons = createElement('div', {
+  classNames: ['d-flex'],
+  children: [
+    reservations,
+    logoutButton,
+  ],
+});
+
+const navigation = () => {
+  let isMenuOpen = false;
+
+  const menuButton = link(image(['icon-img'], menu, 25, 25), ['menu-btn', 'nav-icon'], (event) => {
+    event.preventDefault();
+    document.getElementById('nav-links-mobile').classList.toggle('nav-links-mobile-open');
+
+    isMenuOpen = !isMenuOpen;
+    const menuBtn = document.getElementById('menu-btn');
+    menuBtn.innerHTML = '';
+    menuButton.append(image(['icon-img'], isMenuOpen ? close : menu, 25, 25));
+  });
+  menuButton.id = 'menu-btn';
+
+  const homeButton = link(image(['logo-img'], logo, 60, 45), ['logo'], (event) => {
     event.preventDefault();
     document.dispatchEvent(createNavigationEvent('home'));
   });
 
-  const buttons = navItems.map((item) => button(Object.values(item), ['nav-btn'], (event) => {
+  const navItemsDesktop = navItemsLabels.map((item) => link(Object.values(item), ['nav-link'], (event) => {
     event.preventDefault();
     document.dispatchEvent(createNavigationEvent(Object.keys(item)[0]));
   }));
 
-  const buttonsContainer = createElement('div', {
-    classNames: [],
-    children: buttons,
+  const navLinksDesktop = createElement('div', {
+    classNames: ['nav', 'nav-links'],
+    children: navItemsDesktop,
   });
 
-  const cartImg = image(['cart'], cart, 25, 25);
+  const navItemsMobile = navItemsLabels.map((item) => link(Object.values(item), ['nav-link'], (event) => {
+    event.preventDefault();
+    document.getElementById('nav-links-mobile').classList.remove('nav-links-mobile-open');
+    document.dispatchEvent(createNavigationEvent(Object.keys(item)[0]));
+  }));
 
-  const cartButton = button(cartImg, ['nav-btn'], (event) => {
+  const navLinksMobile = createElement('div', {
+    id: 'nav-links-mobile',
+    classNames: ['nav-links-mobile'],
+    children: navItemsMobile,
+  });
+
+  const loginWrapper = createElement('div', { id: 'login-wrapper' });
+  loginWrapper.append(localStorage.getItem('isUserLogged') ? userIcons : loginButton);
+
+  const cartButton = button(image(['icon-img'], cart, 25, 25), ['nav-icon'], (event) => {
     event.preventDefault();
     document.dispatchEvent(createNavigationEvent('cart'));
   }, showCartPreview, hideCartPreview);
 
-  const loginWrapper = createElement('div', { id: 'login-wrapper' });
-
-  const nav = createElement('nav', {
-    classNames: ['nav', 'justify-content-between', 'align-items-center'],
+  const navIcons = createElement('div', {
+    classNames: ['nav'],
     children: [
-      homeButton, buttonsContainer, loginWrapper, cartButton,
+      loginWrapper, cartButton,
     ],
   });
 
-  loginWrapper.append(localStorage.getItem('isUserLogged') ? logoutButton : loginButton);
+  const navbar = createElement('navbar', {
+    classNames: ['navbar', 'justify-content-between', 'align-items-center'],
+    children: [
+      navLinksMobile, menuButton, navLinksDesktop, homeButton, navIcons,
+    ],
+  });
 
-  return nav;
+  return navbar;
 };
 
 export default navigation;
-export { logoutButton };
+export { userIcons };

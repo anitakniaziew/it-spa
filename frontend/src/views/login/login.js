@@ -5,7 +5,7 @@ import pageTitle from '../../components/pageTitle';
 import loader from '../../components/loader';
 import input from '../../components/input';
 import button from '../../components/button';
-import { logoutButton } from '../../common/navigation/index';
+import { userIcons } from '../../common/navigation/index';
 
 const reservations = () => {
   const fragment = document.createDocumentFragment();
@@ -32,7 +32,7 @@ const reservations = () => {
             document.dispatchEvent(createNavigationEvent('reservations'));
             localStorage.setItem('isUserLogged', true);
             document.getElementById('login-wrapper').innerHTML = '';
-            document.getElementById('login-wrapper').append(logoutButton);
+            document.getElementById('login-wrapper').append(userIcons);
           })
           .catch(() => {
             invalidLoginCredentials.hidden = false;
