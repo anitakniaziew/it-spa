@@ -9,7 +9,14 @@
   background-position: center center;
   width: 100%;
   height: calc(100vh - 60px);
-  padding: 15rem;
+
+  @media (max-width: 760px) {
+    padding: 1rem;
+  }
+
+  @media (min-width: 761px) {
+    padding: 3rem;
+  }
 }
 
 .hero-greeting {
@@ -32,5 +39,13 @@
 }
 
 .hero-btns {
+  flex-direction: column;
+  justify-content: center;
   margin-top: 1.5rem;
+  align-self: center;
+
+  @media (min-width: 620px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

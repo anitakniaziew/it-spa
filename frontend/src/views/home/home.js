@@ -21,7 +21,7 @@ const home = () => {
           })],
       }),
       createElement('div', {
-        classNames: ['hero-btns', 'd-flex', 'justify-content-between'],
+        classNames: ['hero-btns', 'd-flex'],
         children: [
           button('Przeglądaj pokoje', ['btn-primary'], (event) => {
             event.preventDefault();
