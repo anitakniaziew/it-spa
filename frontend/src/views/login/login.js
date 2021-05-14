@@ -1,17 +1,11 @@
 import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
+import createNavigationEvent from '../../helpers/createNavigationEvent';
 import pageTitle from '../../components/pageTitle';
 import loader from '../../components/loader';
 import input from '../../components/input';
 import button from '../../components/button';
 import { logoutButton } from '../../common/navigation/index';
-
-const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation', {
-  detail: {
-    view,
-    params,
-  },
-});
 
 const reservations = () => {
   const fragment = document.createDocumentFragment();

@@ -1,6 +1,7 @@
 import apiClient from '../../helpers/apiClient';
 import { showCartPreview, hideCartPreview } from '../cartPreview/cartPreview';
 import createElement from '../../helpers/createElement';
+import createNavigationEvent from '../../helpers/createNavigationEvent';
 import button from '../../components/button';
 import image from '../../components/img';
 import logo from '../../assets/img/logo.png';
@@ -8,13 +9,6 @@ import cart from '../../assets/img/cart.svg';
 import './navigation.scss';
 
 const navItems = [{ rooms: 'pokoje' }, { treatments: 'zabiegi' }];
-
-const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation', {
-  detail: {
-    view,
-    params,
-  },
-});
 
 const loginButton = button('Zaloguj', ['nav-btn'], (event) => {
   event.preventDefault();

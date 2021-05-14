@@ -1,15 +1,9 @@
 import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
+import createNavigationEvent from '../../helpers/createNavigationEvent';
 import img from '../../components/img';
 import button from '../../components/button';
 import './cartPreview.scss';
-
-const createNavigationEvent = (view, params = {}) => new CustomEvent('navigation', {
-  detail: {
-    view,
-    params,
-  },
-});
 
 const removeCartItem = (id) => {
   apiClient.delete(`/cart/${id}`, {
