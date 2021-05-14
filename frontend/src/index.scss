@@ -4,6 +4,15 @@
   color: #13242b;
 }
 
+p {
+  margin: 0;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .page-title {
   text-align: center;
 }

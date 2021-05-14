@@ -5,7 +5,7 @@ import createNavigationEvent from '../../helpers/createNavigationEvent';
 import button from '../../components/button';
 import image from '../../components/img';
 import link from '../../components/link';
-import logo from '../../assets/img/logo.png';
+import logo from '../../assets/img/logo.svg';
 import menu from '../../assets/img/menu.svg';
 import close from '../../assets/img/close-menu.svg';
 import cart from '../../assets/img/cart.svg';
@@ -59,7 +59,15 @@ const navigation = () => {
   });
   menuButton.id = 'menu-btn';
 
-  const homeButton = link(image(['logo-img'], logo, 60, 45), ['logo'], (event) => {
+  const logoWrapper = createElement('div', {
+    classNames: ['d-flex', 'align-items-center'],
+    children: [
+      image(['logo-img'], logo, 24, 24),
+      createElement('p', { classNames: ['text-decoration-none', 'text-uppercase'], children: ['it spa and wellness'] }),
+    ],
+  });
+
+  const homeButton = link(logoWrapper, ['logo'], (event) => {
     event.preventDefault();
     document.dispatchEvent(createNavigationEvent('home'));
   });

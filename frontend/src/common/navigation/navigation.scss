@@ -21,6 +21,12 @@
     }
   }
 
+  .logo p {
+    color: white;
+    font-size: 0.6rem;
+    margin-left: 0.2rem;
+  }
+
   .nav-icon {
     height: 100%;
     background-color: $blue;
@@ -68,5 +74,13 @@
   .nav-links-mobile,
   .nav-links-mobile-open {
     display: none;
+  }
+}
+
+@media (min-width: 1140px) {
+  .nav-links,
+  .nav-icons,
+  .logo {
+    width: 33%;
   }
 }
