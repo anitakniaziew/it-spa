@@ -1,30 +1,5 @@
 @import '../../styles/colors.scss';
 
-.rooms-section,
-.rooms-details-section {
-  padding: 0.8rem;
-  text-align: left;
-  vertical-align: middle;
-}
-
-.room-item {
-  margin-bottom: 4rem;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.cover-img {
-  mix-blend-mode: multiply;
-}
-
-.room-name {
-  margin: 1rem;
-  letter-spacing: 1.5px;
-  color: $blue;
-  text-align: center;
-}
-
 .room-parameters-container,
 .carousel {
   margin: 1rem 0;
@@ -52,18 +27,8 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: 5rem;
   }
-
-  .rooms-section,
-  .rooms-details-section {
-    padding: 1rem 3rem;
-  }
-
   .room-parameters-container {
     margin: 2rem 0;
-  }
-
-  .room-parameter {
-    margin: 0.8rem 0;
   }
 
   .carousel {

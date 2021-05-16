@@ -4,12 +4,15 @@ import loader from '../../components/loader';
 import img from '../../components/img';
 import button from '../../components/button';
 import pageTitle from '../../components/pageTitle';
+import treatmentParameters from './treatmentParameters';
+
+import './treatments.scss';
 
 const treatments = () => {
   const fragment = document.createDocumentFragment();
   const title = pageTitle('Oferta zabiegów');
-  const createStrong = (text) => createElement('strong', { children: [text] });
   const section = createElement('section', {
+    classNames: ['treatments-section'],
     children: [loader()],
   });
 
@@ -22,21 +25,17 @@ const treatments = () => {
         id, name, area, time, price, coverPhoto,
       }) => {
         const article = createElement('article', {
+          classNames: ['treatment-item'],
           children: [
-            img(['cover-img'], coverPhoto, 300, 250),
-            createElement('h4', { children: [name] }),
-            createElement('p', {
-              children: [createStrong('Obszar ciała: '), area],
-            }),
-            createElement('p', {
-              children: [createStrong('Czas: '), `${time} min.`],
-            }),
-            createElement('p', {
-              children: [
-                createStrong('Price: '),
-                `${price.toFixed(2)} zł`,
-              ],
-            }),
+            img(['cover-img', 'w-100', 'my-3'], coverPhoto),
+            createElement('h4', { classNames: ['treatment-name'], children: [name] }),
+            treatmentParameters(area, time, price),
+            button('Dodaj do koszyka', ['btn-primary'],
+              () => apiClient.post('/cart', {
+                id,
+                itemType: 'treatmentCartItem',
+                quantity: 1,
+              })),
           ],
         });
 
@@ -53,19 +52,8 @@ const treatments = () => {
 
           document.dispatchEvent(navigationEvent);
         });
-        const div = createElement('div');
 
-        const btn = button('Dodaj do koszyka', ['cart-btn'],
-          () => apiClient.post('/cart', {
-            id,
-            itemType: 'treatmentCartItem',
-            quantity: 1,
-          }));
-
-        div.append(article);
-        div.append(btn);
-
-        return div;
+        return article;
       });
 
       section.innerHTML = '';

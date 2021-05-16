@@ -4,11 +4,13 @@ import img from '../../components/img';
 import pageTitle from '../../components/pageTitle';
 import button from '../../components/button';
 import loader from '../../components/loader';
+import treatmentParameters from './treatmentParameters';
 
 const treatmentsDetail = ({ treatmentId }) => {
   const fragment = document.createDocumentFragment();
-  const title = pageTitle('Szczegóły');
+  const title = pageTitle('');
   const section = createElement('section', {
+    classNames: ['treatments-details-section'],
     children: [loader()],
   });
 
@@ -21,31 +23,15 @@ const treatmentsDetail = ({ treatmentId }) => {
     }) => {
       const article = createElement('article', {
         children: [
-          img(['cover-img'], coverPhoto, 300, 250),
-          createElement('h2', { children: [name] }),
+          img(['cover-img'], coverPhoto),
           createElement('p', { children: [description] }),
-          createElement('p', {
-            children: [
-              createElement('strong', { children: ['Obsza ciała: '] }),
-              area,
-            ],
-          }),
-          createElement('p', {
-            children: [
-              createElement('strong', { children: ['Czas: '] }),
-              time,
-            ],
-          }),
-          createElement('p', {
-            children: [
-              createElement('strong', { children: ['Cena: '] }),
-              `${price.toFixed(2)} zł`,
-            ],
-          }),
+          treatmentParameters(area, time, price),
         ],
       });
 
-      const btn = button('Dodaj do koszyka', ['cart-btn'],
+      title.innerText = name;
+
+      const btn = button('Dodaj do koszyka', ['btn-primary'],
         () => apiClient.post('/cart', {
           id: treatmentId,
           itemType: 'treatmentCartItem',

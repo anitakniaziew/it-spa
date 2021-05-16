@@ -44,3 +44,53 @@ section {
     border: 2px solid $primary;
   }
 }
+
+//SHARED STYLES FOR ROOMS AND TREATMENTS
+
+.rooms-section,
+.rooms-details-section,
+.treatments-section,
+.treatments-details-section {
+  padding: 0.8rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.room-item,
+.treatment-item {
+  margin-bottom: 4rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cover-img {
+  mix-blend-mode: multiply;
+}
+
+.room-name,
+.treatment-name {
+  margin: 1rem 0;
+  letter-spacing: 1.5px;
+  color: $blue;
+  text-align: center;
+}
+
+.room-parameter,
+.treatment-parameter {
+  margin: 0.8rem 0;
+}
+
+@media (min-width: 769px) {
+  .rooms-section,
+  .rooms-details-section,
+  .treatments-section,
+  .treatments-details-section {
+    padding: 1rem 3rem;
+  }
+
+  .room-parameter,
+  .treatments-section {
+    margin: 0.8rem 0;
+  }
+}

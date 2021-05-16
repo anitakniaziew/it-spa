@@ -1,0 +1,33 @@
+.treatments-details-section {
+  .cover-img {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .treatment-item {
+    .cover-img {
+      height: 250px;
+    }
+  }
+
+  .treatments-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5rem;
+  }
+
+  .treatments-details-section {
+    .cover-img {
+      width: 35%;
+      float: right;
+      margin: 2rem 0 2rem 2rem;
+    }
+  }
+}
+
+@media (min-width: 1040px) {
+  .treatments-section {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
