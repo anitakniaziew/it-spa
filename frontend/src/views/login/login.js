@@ -17,7 +17,7 @@ const reservations = () => {
     children: [
       input('login', 'email', 'login', 'form-control'),
       input('hasło', 'password', 'password', 'form-control', false, { text: 'Błędny email lub hasło.', id: 'invalid-login-credentials' }),
-      button('Zaloguj', ['nav-btn'], () => {
+      button('Zaloguj', ['btn-primary'], () => {
         const login = document.getElementById('login').value;
         const password = document.getElementById('password').value;
         const invalidLoginCredentials = document.getElementById('invalid-login-credentials');
@@ -40,7 +40,7 @@ const reservations = () => {
       })],
   });
 
-  const registrationButton = button('Zarejestruj konto', ['secondary-btn'], (event) => {
+  const registrationButton = button('Zarejestruj konto', ['btn-secondary'], (event) => {
     event.preventDefault();
     document.dispatchEvent(createNavigationEvent('registration'));
   });

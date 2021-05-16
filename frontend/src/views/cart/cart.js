@@ -31,14 +31,15 @@ const cart = () => {
       section.innerHTML = '';
       articles.forEach((article) => section.append(article));
 
-      const reservationButton = button('Zatwierdź rezerwację', ['nav-btn'], (event) => {
+      const reservationButton = button('Zatwierdź rezerwację', ['btn-primary'], (event) => {
         event.preventDefault();
         apiClient.post('/reservations')
           .then(document.dispatchEvent(createNavigationEvent('reservations')))
           .catch(document.dispatchEvent(createNavigationEvent('login')));
       });
 
-      section.append(cartSummary, reservationButton);
+      section.append(cartSummary);
+      if (articles.length !== 0) section.append(reservationButton);
     });
 
   fragment.append(pageTitle('Zawartość koszyka'), section);

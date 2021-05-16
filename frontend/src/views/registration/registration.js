@@ -37,7 +37,7 @@ const registration = () => {
       input('hasło', 'password', 'password', 'form-control',
         'required', { text: 'Hasło jest zbyt krótkie.', id: 'password-short' }),
       input('powtórz hasło', 'password', 'repeat-password', 'form-control', false, { text: 'Podane hasła się nie zgadzają.', id: 'password-mismatch' }),
-      button('Rejestruj', ['nav-btn'], () => {
+      button('Rejestruj', ['btn-primary'], () => {
         const login = document.getElementById('login').value;
         const password = document.getElementById('password').value;
         const repeatPassword = document.getElementById('repeat-password').value;

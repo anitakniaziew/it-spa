@@ -29,15 +29,19 @@ section {
   text-align: center;
 }
 
-.btn-primary {
+.btn-primary,
+.btn-secondary {
   background-color: initial;
   text-transform: uppercase;
   letter-spacing: 2px;
-  border: 2px solid $primary;
   border-radius: 4px;
-  color: $primary;
   padding: 0.7rem 1.6rem;
   font-weight: 600;
+}
+
+.btn-primary {
+  border: 2px solid $primary;
+  color: $primary;
 
   &:hover {
     background-color: $primary;
@@ -45,6 +49,15 @@ section {
   }
 }
 
+.btn-secondary {
+  border: 2px solid $dark-blue;
+  color: $dark-blue;
+
+  &:hover {
+    background-color: $dark-blue;
+    border: 2px solid $dark-blue;
+  }
+}
 //SHARED STYLES FOR ROOMS AND TREATMENTS
 
 .rooms-section,

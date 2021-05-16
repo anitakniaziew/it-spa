@@ -76,7 +76,7 @@ const cartPreview = () => {
   cartPreviewContainer.addEventListener('mouseenter', () => addClassActive());
   cartPreviewContainer.addEventListener('mouseleave', () => hideCartPreview());
 
-  const cartButton = button('Zobacz koszyk', ['nav-btn', 'cart-btn'], (event) => {
+  const cartButton = button('Zobacz koszyk', ['btn-secondary'], (event) => {
     event.preventDefault();
     document.dispatchEvent(createNavigationEvent('cart'));
     hideCartPreview();
