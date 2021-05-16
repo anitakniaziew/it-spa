@@ -2,11 +2,11 @@
 @import './styles/colors.scss';
 
 * {
-  color: #13242b;
+  color: $dark-blue;
 }
 
 body {
-  background-color: #e0e0e0;
+  background-color: $light-grey;
   font-family: 'Ubuntu', 'Helvetica', sans-serif;
 }
 

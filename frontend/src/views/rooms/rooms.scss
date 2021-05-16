@@ -1,0 +1,36 @@
+@import '../../styles/colors.scss';
+
+.room-item {
+  margin-bottom: 4rem;
+}
+
+.cover-img {
+  width: 100vw;
+  mix-blend-mode: multiply;
+}
+
+.room-name {
+  margin: 1rem;
+  letter-spacing: 1.5px;
+  color: $blue;
+}
+
+.room-parameters-container {
+  text-align: left;
+}
+
+.room-parameter {
+  margin: 0.8rem;
+}
+
+@media (min-width: 769px) {
+  .rooms-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5rem;
+    padding: 1rem 3rem;
+  }
+  .cover-img {
+    width: 100%;
+  }
+}

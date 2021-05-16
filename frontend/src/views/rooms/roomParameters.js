@@ -1,6 +1,7 @@
 import createElement from '../../helpers/createElement';
 
 const p = (textBold, textRegular = '') => createElement('p', {
+  classNames: ['room-parameter'],
   children: [
     createElement('strong', { children: [textBold] }),
     textRegular,

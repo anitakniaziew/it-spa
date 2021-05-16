@@ -3,8 +3,8 @@ import createElement from '../helpers/createElement';
 const image = (classNames, src, width, height) => {
   const img = createElement('img', { classNames });
   img.src = src;
-  img.width = width;
-  img.height = height;
+  if (width) img.width = width;
+  if (height) img.height = height;
   return img;
 };
 
