@@ -20,19 +20,25 @@ const renderPreviewCartItem = (cartItem, onRemove) => {
 
   const article = createElement('article', {
     id: `previewItem-${id}`,
+    classNames: ['my-3'],
     children: [
-      img(['cover-img'], coverPhoto, 100, 70),
+      createElement('div', {
+        classNames: ['d-flex', 'justify-content-between'],
+        children: [
+          img(['cover-img', 'mb-3'], coverPhoto, 120, 80),
+          button('x', ['btn-remove-cart-item'], () => {
+            onRemove(id);
+          }),
+        ],
+      }),
       createElement('h6', { children: [name] }),
       createElement('p', {
         children: [`${price.toFixed(2)} zł`],
       }),
       itemType === 'treatmentCartItem'
         ? createElement('p', {
-          children: [cartItem.quantity],
+          children: [`${cartItem.quantity} szt.`],
         }) : '',
-      button('x', ['btn-remove-cart-item'], () => {
-        onRemove(id);
-      }),
     ],
   });
 
@@ -69,7 +75,14 @@ const hideCartPreview = () => {
 };
 
 const cartPreview = () => {
-  const cartPreviewContainer = createElement('div', { classNames: ['cart-preview-container'], children: ['Twój koszyk'] });
+  const cartPreviewContainer = createElement('div', {
+    classNames: ['cart-preview-container'],
+    children: [
+      createElement('h6', {
+        classNames: ['text-center'],
+        children: ['Twój koszyk'],
+      })],
+  });
   const cartItems = createElement('div', { id: 'cart-items' });
 
   cartPreviewContainer.id = 'cart-preview-container';
