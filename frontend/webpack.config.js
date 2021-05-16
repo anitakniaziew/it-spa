@@ -30,12 +30,16 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        use: [
-          { loader: 'style-loader/url' },
-          { loader: 'file-loader', options: { name: '[name].css' } },
-          'sass-loader',
+        use: ['style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              url: true,
+              import: true,
+            },
+          },
           'postcss-loader',
-        ],
+          'sass-loader'],
       },
       {
         test: /\.js$/,
@@ -53,6 +57,8 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
+            publicPath: path.resolve(__dirname, '/assets/img'),
+            outputPath: 'assets/img',
           },
         },
       },
