@@ -1,0 +1,13 @@
+.login-section {
+  padding: 0.8rem;
+
+  button {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  @media (min-width: 769px) {
+    width: 40%;
+    margin: auto;
+  }
+}

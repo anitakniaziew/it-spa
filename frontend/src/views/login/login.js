@@ -7,16 +7,19 @@ import input from '../../components/input';
 import button from '../../components/button';
 import { userIcons } from '../../common/navigation/index';
 
+import './login.scss';
+
 const reservations = () => {
   const fragment = document.createDocumentFragment();
   const section = createElement('section', {
+    classNames: ['login-section'],
     children: [loader()],
   });
 
   const form = createElement('form', {
     children: [
-      input('login', 'email', 'login', 'form-control'),
-      input('hasło', 'password', 'password', 'form-control', false, { text: 'Błędny email lub hasło.', id: 'invalid-login-credentials' }),
+      input('Login', 'email', 'login', 'form-control'),
+      input('Hasło', 'password', 'password', 'form-control', false, { text: 'Błędny email lub hasło.', id: 'invalid-login-credentials' }),
       button('Zaloguj', ['btn-primary'], () => {
         const login = document.getElementById('login').value;
         const password = document.getElementById('password').value;

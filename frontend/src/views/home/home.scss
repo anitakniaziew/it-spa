@@ -41,9 +41,14 @@
   justify-content: center;
   margin-top: 1.5rem;
   align-self: center;
+  width: 100%;
 
   @media (min-width: 620px) {
     flex-direction: row;
-    justify-content: space-between;
+    width: auto;
+
+    .hero-btn {
+      margin: 0 1rem;
+    }
   }
 }
