@@ -1,6 +1,6 @@
 import apiClient from '../../helpers/apiClient';
 import button from '../../components/button';
-import img from '../../components/img';
+import carousel from '../../components/carousel';
 import loader from '../../components/loader';
 import dateInput from '../../components/dateInput';
 import pageTitle from '../../components/pageTitle';
@@ -9,8 +9,9 @@ import roomParameters from './roomParameters';
 
 const roomsDetail = ({ roomId }) => {
   const fragment = document.createDocumentFragment();
-  const title = pageTitle('Szczegóły');
+  const title = pageTitle('');
   const section = createElement('section', {
+    classNames: ['rooms-details-section'],
     children: [loader()],
   });
 
@@ -23,36 +24,42 @@ const roomsDetail = ({ roomId }) => {
     }) => {
       const article = createElement('article', {
         children: [
-          createElement('h2', { children: [name] }),
-          createElement('p', { children: [description] }),
+          createElement('p', { classNames: ['room-description'], children: [description] }),
+          carousel(photos),
           roomParameters(beds, guests, price),
-          createElement('div', { children: photos.map((photo) => img(['gallery'], photo, 400, 250)) }),
         ],
       });
 
+      title.innerText = name;
       section.innerHTML = '';
       section.append(article);
+
+      const handleBooking = () => {
+        apiClient.post('/cart', {
+          id: roomId,
+          itemType: 'roomCartItem',
+          reservationFrom: document.getElementById('reservation-start').value,
+          reservationTo: document.getElementById('reservation-end').value,
+        });
+      };
+
+      const reservationForm = createElement('form', {
+        classNames: ['reservation-from'],
+        children: [
+          dateInput('Od: ', 'reservation-start'),
+          dateInput('Do: ', 'reservation-end'),
+          button('Rezerwuj', ['btn-primary', 'reservation-btn'], handleBooking),
+        ],
+      });
+
+      section.append(reservationForm);
     });
 
-  const handleBooking = () => {
-    apiClient.post('/cart', {
-      id: roomId,
-      itemType: 'roomCartItem',
-      reservationFrom: document.getElementById('reservation-start').value,
-      reservationTo: document.getElementById('reservation-end').value,
+  window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('carousel').carousel({
+      interval: '3000',
     });
-  };
-
-  const reservationForm = createElement('form', {
-    classNames: ['reservation-from'],
-    children: [
-      dateInput('Data początkowa:', 'reservation-start'),
-      dateInput('Data końcowa:', 'reservation-end'),
-      button('Rezerwuj', ['secondary-btn'], handleBooking),
-    ],
   });
-
-  fragment.append(reservationForm);
 
   return fragment;
 };

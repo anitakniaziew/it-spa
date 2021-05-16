@@ -1,16 +1,17 @@
 import createElement from '../helpers/createElement';
 import formatDate from '../helpers/dateFormatter';
 
-const dateInput = (lableText, inputId) => {
+const dateInput = (labelText, inputId) => {
   const fragment = document.createDocumentFragment();
-  const label = createElement('label', { children: [lableText] });
+
+  const label = createElement('label', { children: [labelText] });
   label.for = inputId;
 
   const today = new Date();
   const yearFromNow = new Date();
   yearFromNow.setFullYear(today.getFullYear() + 1);
 
-  const input = createElement('input');
+  const input = createElement('input', { classNames: ['form-control'] });
   input.type = 'date';
   input.id = inputId;
   input.name = inputId;

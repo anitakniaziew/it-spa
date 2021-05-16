@@ -41,7 +41,7 @@ const rooms = () => {
         const article = createElement('article', {
           classNames: ['room-item'],
           children: [
-            img(['cover-img'], coverPhoto),
+            img(['cover-img', 'w-100'], coverPhoto),
             createElement('h4', { classNames: ['room-name'], children: [name] }),
             roomParameters(beds, guests, price),
             button('Zobacz więcej', ['btn-primary'], (event) => displayRoomDetails(event, id)),

@@ -23,11 +23,11 @@ const home = () => {
       createElement('div', {
         classNames: ['hero-btns', 'd-flex'],
         children: [
-          button('Przeglądaj pokoje', ['btn-primary'], (event) => {
+          button('Przeglądaj pokoje', ['btn-primary', 'm-3'], (event) => {
             event.preventDefault();
             document.dispatchEvent(createNavigationEvent('rooms'));
           }),
-          button('Przeglądaj zabiegi', ['btn-primary'], (event) => {
+          button('Przeglądaj zabiegi', ['btn-primary', 'm-3'], (event) => {
             event.preventDefault();
             document.dispatchEvent(createNavigationEvent('treatments'));
           }),
