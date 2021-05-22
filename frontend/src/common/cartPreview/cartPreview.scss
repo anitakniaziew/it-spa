@@ -1,5 +1,5 @@
 .cart-preview-container {
-  width: 20%;
+  width: 30%;
   position: fixed;
   top: -100%;
   right: 0;
@@ -7,6 +7,11 @@
   z-index: 1;
   background-color: whitesmoke;
   padding: 1rem;
+
+  .cart-items {
+    max-height: calc(100vh - 200px);
+    overflow: scroll;
+  }
 }
 
 .cart-preview-container-active {
@@ -29,5 +34,11 @@
   }
   to {
     top: -100%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .cart-preview-container {
+    display: none;
   }
 }
