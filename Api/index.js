@@ -199,7 +199,9 @@ client.connect().then((client) => {
       );
 
       if (isItemInCart) {
-        req.session.cart[0].quantity = currentCart[0].quantity + newCartItem.quantity;
+        const indexToChange = req.session.cart.findIndex( item => item.id === id);
+
+        req.session.cart[indexToChange].quantity = currentCart[indexToChange].quantity + newCartItem.quantity;
         res.status(201).end();
         return;
       }
