@@ -1,6 +1,7 @@
 import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
 import createNavigationEvent from '../../helpers/createNavigationEvent';
+// import isUserLogged from '../../helpers/isUserLogged';
 import button from '../../components/button';
 import pageTitle from '../../components/pageTitle';
 import loader from '../../components/loader';
@@ -34,8 +35,8 @@ const cart = () => {
       const reservationButton = button('Zatwierdź rezerwację', ['btn-primary'], (event) => {
         event.preventDefault();
         apiClient.post('/reservations')
-          .then(document.dispatchEvent(createNavigationEvent('reservations')))
-          .catch(document.dispatchEvent(createNavigationEvent('login')));
+          .then(() => document.dispatchEvent(createNavigationEvent('reservations')))
+          .catch(() => document.dispatchEvent(createNavigationEvent('login', { redirectTo: 'cart' })));
       });
 
       section.append(cartSummary);
