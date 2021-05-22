@@ -2,6 +2,7 @@ import apiClient from '../../helpers/apiClient';
 import { showCartPreview, hideCartPreview } from '../cartPreview/cartPreview';
 import createElement from '../../helpers/createElement';
 import createNavigationEvent from '../../helpers/createNavigationEvent';
+import isUserLogged from '../../helpers/isUserLogged';
 import button from '../../components/button';
 import image from '../../components/img';
 import link from '../../components/link';
@@ -28,7 +29,7 @@ const logoutButton = link(image(['icon-img'], logout, 25, 25), ['nav-icon'], () 
       localStorage.removeItem('isUserLogged');
       document.getElementById('login-wrapper').innerHTML = '';
       document.getElementById('login-wrapper').append(loginButton);
-      alert('Wylogowano');
+      document.dispatchEvent(createNavigationEvent('home'));
     });
 });
 
@@ -95,7 +96,7 @@ const navigation = () => {
   });
 
   const loginWrapper = createElement('div', { id: 'login-wrapper' });
-  loginWrapper.append(localStorage.getItem('isUserLogged') ? userIcons : loginButton);
+  loginWrapper.append(isUserLogged() ? userIcons : loginButton);
 
   const cartButton = button(image(['icon-img'], cart, 25, 25), ['nav-icon'], (event) => {
     event.preventDefault();
