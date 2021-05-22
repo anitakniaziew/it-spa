@@ -9,7 +9,7 @@ import { userIcons } from '../../common/navigation/index';
 
 import './login.scss';
 
-const reservations = () => {
+const login = ({ redirectTo = 'reservations' }) => {
   const fragment = document.createDocumentFragment();
   const section = createElement('section', {
     classNames: ['login-section'],
@@ -32,8 +32,8 @@ const reservations = () => {
 
         apiClient.post('/login', data)
           .then(() => {
-            document.dispatchEvent(createNavigationEvent('reservations'));
             localStorage.setItem('isUserLogged', true);
+            document.dispatchEvent(createNavigationEvent(redirectTo));
             document.getElementById('login-wrapper').innerHTML = '';
             document.getElementById('login-wrapper').append(userIcons);
           })
@@ -65,4 +65,4 @@ const reservations = () => {
   return fragment;
 };
 
-export default reservations;
+export default login;
