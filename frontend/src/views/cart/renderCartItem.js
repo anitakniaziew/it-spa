@@ -3,7 +3,7 @@ import img from '../../components/img';
 import createElement from '../../helpers/createElement';
 import button from '../../components/button';
 
-const createStrong = (text) => createElement('strong', { children: [text] });
+const createStrong = (text) => createElement('strong', { classNames: ['mr-1'], children: [text] });
 
 const removeCartItem = (id, price, quantity = 1) => {
   apiClient.delete(`/cart/${id}`, {
@@ -21,7 +21,7 @@ const renderTreatmentCartItem = (cartItem) => {
   } = cartItem.treatmentDetails;
 
   const quantityContainer = createElement('p', {
-    classNames: ['quantity'],
+    classNames: ['quantity', 'd-flex', 'my-1'],
     children: [createStrong('Ilość: '), quantity],
   });
   const sumContainer = createElement('p', {
@@ -56,26 +56,36 @@ const renderTreatmentCartItem = (cartItem) => {
   };
 
   const article = createElement('article', {
-    classNames: [id],
+    classNames: ['cart-article', 'mb-3'],
     children: [
-      img(['cover-img'], coverPhoto, 400, 250),
-      createElement('h2', { children: [name] }),
-      quantityContainer,
       createElement('div', {
-        classNames: ['buttons'],
+        classNames: ['cart-article-header', 'd-flex', 'justify-content-between', 'align-items-center'],
         children: [
-          button('+', ['btn-plus'], increaseQuantity),
-          button('-', ['btn-minus'], decreaseQuantity),
+          createElement('h4', { children: [name] }),
+          button('x', ['btn-remove-cart-item'], () => removeCartItem(id, price, quantity)),
         ],
       }),
-      createElement('p', {
+      createElement('div', {
         children: [
-          createStrong('Cena: '),
-          `${price.toFixed(2)} zł`,
+          img(['cover-img'], coverPhoto),
+          createElement('div', {
+            classNames: ['buttons', 'd-flex'],
+            children: [
+              quantityContainer,
+              button('+', ['change-quantity-btn', 'align-items-center'], increaseQuantity),
+              button('-', ['change-quantity-btn', 'align-items-center'], decreaseQuantity),
+            ],
+          }),
+          createElement('p', {
+            children: [
+              createStrong('Cena: '),
+              `${price.toFixed(2)} zł`,
+            ],
+          }),
         ],
       }),
+
       sumContainer,
-      button('x', ['btn-remove-cart-item'], () => removeCartItem(id, price, quantity)),
     ],
   });
 
@@ -90,9 +100,16 @@ const renderRoomCartItem = (cartItem) => {
   } = cartItem.roomDetails;
 
   const article = createElement('article', {
+    classNames: ['cart-article', 'mb-3'],
     children: [
-      img(['cover-img'], coverPhoto, 400, 250),
-      createElement('h2', { children: [name] }),
+      createElement('div', {
+        classNames: ['cart-article-header', 'd-flex', 'justify-content-between', 'align-items-center'],
+        children: [
+          createElement('h4', { children: [name] }),
+          button('x', ['btn-remove-cart-item'], () => removeCartItem(id, price)),
+        ],
+      }),
+      img(['cover-img'], coverPhoto),
       createElement('p', {
         children: [createStrong('Rezerwacja od: '), reservationFrom],
       }),
@@ -105,7 +122,6 @@ const renderRoomCartItem = (cartItem) => {
           `${price.toFixed(2)} zł`,
         ],
       }),
-      button('x', ['btn-remove-cart-item'], () => removeCartItem(id, price)),
     ],
   });
 

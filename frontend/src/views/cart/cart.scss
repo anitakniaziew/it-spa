@@ -1,0 +1,81 @@
+@import '../../styles/colors.scss';
+
+.cart-section {
+  margin: auto;
+
+  .cart-article {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid grey;
+  }
+
+  .cart-article-header {
+    padding: 0.5rem 0;
+  }
+
+  .cover-img {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  .btn-remove-cart-item {
+    background: transparent;
+
+    &:hover {
+      background: black;
+    }
+  }
+
+  .change-quantity-btn {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid black;
+    border-radius: 2px;
+    background: transparent;
+    margin-left: 1.5rem;
+
+    &:hover {
+      background: black;
+      color: white;
+    }
+  }
+
+  .cart-summary {
+    text-align: center;
+  }
+}
+
+@media (min-width: 469px) {
+  .cart-article {
+    overflow: auto;
+
+    .change-quantity-btn {
+      margin-left: 0.5rem;
+    }
+
+    .cover-img {
+      width: 35%;
+      float: left;
+      margin: 0 2rem 0 0;
+    }
+
+    .cart-summary {
+      height: 300px;
+    }
+  }
+}
+
+@media (min-width: 700px) {
+  .cart-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 3rem;
+  }
+
+  .cart-article {
+    overflow: auto;
+
+    .cover-img {
+      width: 15%;
+    }
+  }
+}

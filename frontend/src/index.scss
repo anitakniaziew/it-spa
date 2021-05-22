@@ -79,7 +79,8 @@ section {
 .rooms-details-section,
 .treatments-section,
 .treatments-details-section,
-.reservations-section {
+.reservations-section,
+.cart-section {
   padding: 0.8rem;
   text-align: left;
   vertical-align: middle;
@@ -115,8 +116,9 @@ section {
   .rooms-details-section,
   .treatments-section,
   .treatments-details-section,
-  .reservations-section {
-    padding: 1rem 3rem;
+  .reservations-section,
+  .cart-section {
+    padding: 1rem 5rem;
   }
 
   .room-parameter,
