@@ -1,0 +1,55 @@
+@import '../../styles/colors.scss';
+
+.reservation-item {
+  border: 1px solid grey;
+  border-radius: 4px;
+  overflow: auto;
+
+  .reservation-header {
+    background: $blue;
+    color: $white;
+  }
+
+  .reservation-details {
+    .cover-img {
+      display: block;
+      width: 30%;
+      height: auto;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  .toggle-btn-wrapper {
+    padding: 0.5rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    .toggle-btn-icon {
+      height: 32px;
+      width: auto;
+
+      &.active {
+        transform: rotate(0.5turn);
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .reservations-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5rem;
+  }
+
+  .reservations-details-section {
+    .cover-img {
+      margin: 2rem 0 2rem 2rem;
+    }
+  }
+}
