@@ -55,6 +55,32 @@ const parseToObjectId = (id) => {
 client.connect().then((client) => {
   const db = client.db();
 
+  const enrichItems = (items) => Promise.all(
+    items.map( async (item) => {
+      if (item.itemType === 'roomCartItem') {
+        const roomId = parseToObjectId(item.id);
+        const room = await db.collection('rooms').findOne({ _id: roomId });
+        let parsedRoom = mapId(room);
+        parsedRoom = mapRoomPhotos(room);
+        return {
+          ...item,
+          roomDetails: parsedRoom,
+        };
+      } else {
+        const treatmentId = parseToObjectId(item.id);
+        const treatment = await db
+          .collection('treatments')
+          .findOne({ _id: treatmentId });
+        let parsedTreatment = mapId(treatment);
+        parsedTreatment = mapTreatmentPhotos(treatment);
+        return {
+          ...item,
+          treatmentDetails: parsedTreatment,
+        }
+      }
+    })
+  );
+
   app.post('/users', async (req, res) => {
     const { email, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
@@ -132,30 +158,7 @@ client.connect().then((client) => {
 
   app.get('/cart', async (req, res) => {
     const currentCart = req.session.cart || [];
-    const cartDetailed = await Promise.all(
-      currentCart.map(async (cartItem) => {
-        if (cartItem.itemType === 'roomCartItem') {
-          const roomId = parseToObjectId(cartItem.id);
-          const room = await db.collection('rooms').findOne({ _id: roomId });
-          let parsedRoom = mapId(room);
-          parsedRoom = mapRoomPhotos(room);
-          return {
-            ...cartItem,
-            roomDetails: parsedRoom,
-          };
-        }
-        const treatmentId = parseToObjectId(cartItem.id);
-        const treatment = await db
-          .collection('treatments')
-          .findOne({ _id: treatmentId });
-        let parsedTreatment = mapId(treatment);
-        parsedTreatment = mapTreatmentPhotos(treatment);
-        return {
-          ...cartItem,
-          treatmentDetails: parsedTreatment,
-        };
-      }),
-    );
+    const cartDetailed = await enrichItems(currentCart);
 
     res.send(cartDetailed).end();
   });
@@ -245,7 +248,7 @@ client.connect().then((client) => {
       return;
     }
     const reservation = {
-      createdAt: new Date().toISOString(),
+      createdAt: new Date().toLocaleString(),
       items: req.session.cart,
     };
     if (req.session.cart.length > 0) {
@@ -261,7 +264,12 @@ client.connect().then((client) => {
       return;
     }
     const reservations = await db.collection('reservations').find().toArray();
-    res.send(reservations.map(mapId)).end();
+    const enrichedReservations = await Promise.all(reservations.map(mapId).map( async (reservation) => ({
+      ...reservation,
+      items: await enrichItems(reservation.items)
+    })));
+
+    res.send(enrichedReservations).end();
   });
 
   const port = process.env.PORT || 3000;
