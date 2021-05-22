@@ -199,7 +199,7 @@ client.connect().then((client) => {
       );
 
       if (isItemInCart) {
-        req.session.cart.quantity = currentCart.quantity + newCartItem.quantity;
+        req.session.cart[0].quantity = currentCart[0].quantity + newCartItem.quantity;
         res.status(201).end();
         return;
       }
