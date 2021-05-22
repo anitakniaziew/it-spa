@@ -1,5 +1,6 @@
 import apiClient from '../../helpers/apiClient';
 import createElement from '../../helpers/createElement';
+import createNavigationEvent from '../../helpers/createNavigationEvent';
 import img from '../../components/img';
 import pageTitle from '../../components/pageTitle';
 import button from '../../components/button';
@@ -32,11 +33,14 @@ const treatmentsDetail = ({ treatmentId }) => {
       title.innerText = name;
 
       const btn = button('Dodaj do koszyka', ['btn-primary'],
-        () => apiClient.post('/cart', {
-          id: treatmentId,
-          itemType: 'treatmentCartItem',
-          quantity: 1,
-        }));
+        () => {
+          apiClient.post('/cart', {
+            id: treatmentId,
+            itemType: 'treatmentCartItem',
+            quantity: 1,
+          });
+          document.dispatchEvent(createNavigationEvent('cart'));
+        });
 
       section.innerHTML = '';
       section.append(article, btn);

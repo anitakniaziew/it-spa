@@ -18,6 +18,20 @@ const treatments = () => {
 
   fragment.append(title, section);
 
+  const displayTreatmentDetails = (event, id) => {
+    event.preventDefault();
+    const navigationEvent = new CustomEvent('navigation', {
+      detail: {
+        view: 'treatments-detail',
+        params: {
+          treatmentId: id,
+        },
+      },
+    });
+
+    document.dispatchEvent(navigationEvent);
+  };
+
   apiClient.get('/treatments')
     .then((response) => response.data)
     .then((treatments) => {
@@ -30,28 +44,12 @@ const treatments = () => {
             img(['cover-img', 'w-100', 'my-3'], coverPhoto),
             createElement('h4', { classNames: ['treatment-name'], children: [name] }),
             treatmentParameters(area, time, price),
-            button('Dodaj do koszyka', ['btn-primary'],
-              () => apiClient.post('/cart', {
-                id,
-                itemType: 'treatmentCartItem',
-                quantity: 1,
-              })),
+            button('Szczegóły', ['btn-primary'],
+              (event) => displayTreatmentDetails(event, id)),
           ],
         });
 
-        article.addEventListener('click', (event) => {
-          event.preventDefault();
-          const navigationEvent = new CustomEvent('navigation', {
-            detail: {
-              view: 'treatments-detail',
-              params: {
-                treatmentId: id,
-              },
-            },
-          });
-
-          document.dispatchEvent(navigationEvent);
-        });
+        article.addEventListener('click', (event) => displayTreatmentDetails(event, id));
 
         return article;
       });

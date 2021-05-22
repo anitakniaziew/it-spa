@@ -1,4 +1,5 @@
 import apiClient from '../../helpers/apiClient';
+import createNavigationEvent from '../../helpers/createNavigationEvent';
 import button from '../../components/button';
 import carousel from '../../components/carousel';
 import loader from '../../components/loader';
@@ -41,6 +42,7 @@ const roomsDetail = ({ roomId }) => {
           reservationFrom: document.getElementById('reservation-start').value,
           reservationTo: document.getElementById('reservation-end').value,
         });
+        document.dispatchEvent(createNavigationEvent('cart'));
       };
 
       const reservationForm = createElement('form', {
