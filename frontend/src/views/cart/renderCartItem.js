@@ -31,7 +31,7 @@ const renderTreatmentCartItem = (cartItem) => {
     ],
   });
 
-  const updateQuantity = () => {
+  const updateQuantity = (operation = 'subtract') => {
     apiClient.put(`/cart/${id}`, {
       id,
       itemType: 'treatmentCartItem',
@@ -42,11 +42,15 @@ const renderTreatmentCartItem = (cartItem) => {
     sumContainer.innerHTML = '';
     sumContainer.append(createStrong('Razem: '),
       `${(price * quantity).toFixed(2)} zł`);
+    const currentCartSum = parseInt(document.getElementById('cartTotalValue').innerHTML, 10);
+    const newCartSum = operation === 'add' ? currentCartSum + price : currentCartSum - price;
+
+    document.getElementById('cartTotalValue').innerHTML = newCartSum;
   };
 
   const increaseQuantity = () => {
     quantity += 1;
-    updateQuantity();
+    updateQuantity('add');
   };
 
   const decreaseQuantity = () => {
