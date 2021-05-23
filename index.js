@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
@@ -6,6 +7,7 @@ const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
+
 
 app.use(
   cors({
@@ -281,6 +283,13 @@ client.connect().then((client) => {
 
     res.send(enrichedReservations).end();
   });
+
+  // Serve static files from frontend
+  app.use(express.static(path.join(__dirname, 'frontend/dist')))
+  // Anything that doesn't match the above, send back index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/frontend/dist/index.html'))
+  })
 
   const port = process.env.PORT || 3000;
 
