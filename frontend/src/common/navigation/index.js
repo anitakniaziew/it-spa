@@ -56,7 +56,7 @@ const navigation = () => {
     isMenuOpen = !isMenuOpen;
     const menuBtn = document.getElementById('menu-btn');
     menuBtn.innerHTML = '';
-    menuButton.append(image(['icon-img'], isMenuOpen ? close : menu, 25, 25));
+    menuBtn.append(image(['icon-img'], isMenuOpen ? close : menu, 25, 25));
   });
   menuButton.id = 'menu-btn';
 
@@ -87,6 +87,11 @@ const navigation = () => {
     event.preventDefault();
     document.getElementById('nav-links-mobile').classList.remove('nav-links-mobile-open');
     document.dispatchEvent(createNavigationEvent(Object.keys(item)[0]));
+
+    isMenuOpen = false;
+    const menuBtn = document.getElementById('menu-btn');
+    menuBtn.innerHTML = '';
+    menuBtn.append(image(['icon-img'], menu, 25, 25));
   }));
 
   const navLinksMobile = createElement('div', {
