@@ -5,6 +5,7 @@
 - [General info](#general-info)
 - [Requirements](#requirements)
 - [Setup](#setup)
+- [Links](#links)
 - [Contact](#contact)
 
 ## General info
@@ -61,6 +62,11 @@ $ npm run start:dev
 ```
 
 Now you're ready to go! To preview the app visit [http://localhost:3000](http://localhost:3000).
+
+## Links
+
+API documentation [https://app.swaggerhub.com/apis-docs/AnitaKow/IT-SPA/1.0.0](https://app.swaggerhub.com/apis-docs/AnitaKow/IT-SPA/1.0.0)
+Heroku deployment [https://it-spa.herokuapp.com/](https://it-spa.herokuapp.com/)
 
 ## Contact
 
