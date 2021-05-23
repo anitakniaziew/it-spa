@@ -104,8 +104,16 @@ const reservations = () => {
       const articles = reservations.reverse().map(generateReservationItem);
       articles.map((article) => historicalReservations.append(article));
 
+      const reservationsColumns = createElement('div', {
+        classNames: ['reservations-columns'],
+        children: [
+          lastReservationItem,
+          historicalReservations,
+        ],
+      });
+
       section.innerHTML = '';
-      section.append(lastReservationItem, historicalReservations);
+      section.append(reservationsColumns);
     });
 
   fragment.append(pageTitle('Twoje rezerwacje'), section);
