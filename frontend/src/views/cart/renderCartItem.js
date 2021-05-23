@@ -66,7 +66,12 @@ const renderTreatmentCartItem = (cartItem) => {
         classNames: ['cart-article-header', 'd-flex', 'justify-content-between', 'align-items-center'],
         children: [
           createElement('h4', { children: [name] }),
-          button('x', ['btn-remove-cart-item'], () => removeCartItem(id, price, quantity)),
+          button('x', ['btn-remove-cart-item'], () => {
+            removeCartItem(id, price, quantity);
+            if (!document.getElementById('cart-items-container').hasChildNodes()) {
+              document.getElementById('cart-section').innerHTML = 'Koszyk jest pusty!';
+            }
+          }),
         ],
       }),
       createElement('div', {
@@ -110,7 +115,12 @@ const renderRoomCartItem = (cartItem) => {
         classNames: ['cart-article-header', 'd-flex', 'justify-content-between', 'align-items-center'],
         children: [
           createElement('h4', { children: [name] }),
-          button('x', ['btn-remove-cart-item'], () => removeCartItem(id, price)),
+          button('x', ['btn-remove-cart-item'], () => {
+            removeCartItem(id, price);
+            if (!document.getElementById('cart-items-container').hasChildNodes()) {
+              document.getElementById('cart-section').innerHTML = 'Koszyk jest pusty!';
+            }
+          }),
         ],
       }),
       img(['cover-img'], coverPhoto),

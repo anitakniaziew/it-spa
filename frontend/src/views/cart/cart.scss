@@ -17,8 +17,10 @@
     margin: 1rem 0;
   }
 
-  .btn-remove-cart-item {
+  .btn-remove-cart-item,
+  .change-quantity-btn {
     background: transparent;
+    font-weight: 600;
 
     &:hover {
       background: black;
@@ -30,11 +32,9 @@
     height: 2rem;
     border: 1px solid black;
     border-radius: 2px;
-    background: transparent;
     margin-left: 1.5rem;
 
     &:hover {
-      background: black;
       color: white;
     }
   }
@@ -69,13 +69,17 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 3rem;
+
+    &.cart-empty {
+      display: block;
+    }
   }
 
   .cart-article {
     overflow: auto;
 
     .cover-img {
-      width: 15%;
+      width: 25%;
     }
   }
 }

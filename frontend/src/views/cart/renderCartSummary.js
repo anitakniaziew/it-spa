@@ -34,10 +34,6 @@ const renderCartSummary = (cartItems) => {
     ],
   });
 
-  const emptyCart = createElement('div', {
-    children: ['Koszyk jest pusty'],
-  });
-
   const reservationButton = button('Zatwierdź rezerwację', ['btn-primary'], (event) => {
     event.preventDefault();
     apiClient.post('/reservations')
@@ -48,7 +44,7 @@ const renderCartSummary = (cartItems) => {
   const isCartEmpty = () => cartTotalValue === 0;
   if (!isCartEmpty()) cartSummary.append(reservationButton);
 
-  return isCartEmpty() ? emptyCart : cartSummary;
+  return cartSummary;
 };
 
 export { renderCartSummary, calculateTotalCartValue };

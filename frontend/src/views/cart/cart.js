@@ -10,6 +10,7 @@ import './cart.scss';
 const cart = () => {
   const fragment = document.createDocumentFragment();
   const section = createElement('section', {
+    id: 'cart-section',
     classNames: ['cart-section'],
     children: [loader()],
   });
@@ -31,11 +32,22 @@ const cart = () => {
 
       section.innerHTML = '';
 
-      const cartItemsContainer = createElement('div', { classNames: ['cart-items-container'] });
-
+      const cartItemsContainer = createElement('div', { id: 'cart-items-container', classNames: ['cart-items-container'] });
       articles.forEach((article) => cartItemsContainer.append(article));
 
-      section.append(cartItemsContainer, cartSummary);
+      const emptyCart = createElement('div', {
+        classNames: ['text-center'],
+        children: ['Koszyk jest pusty!'],
+      });
+
+      const isCartEmpty = () => cartItems.length === 0;
+
+      if (isCartEmpty()) {
+        section.classList.add('cart-empty');
+        section.append(emptyCart);
+      } else {
+        section.append(cartItemsContainer, cartSummary);
+      }
     });
 
   fragment.append(pageTitle('Zawartość koszyka'), section);
