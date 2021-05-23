@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.13.12",
     "@babel/preset-env": "^7.4.2",
     "autoprefixer": "^9.7.4",
     "axios": "^0.21.1",
@@ -32,7 +33,6 @@
     "webpack-dev-server": "^3.7.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.13.12",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.1.0",
