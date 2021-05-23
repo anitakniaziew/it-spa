@@ -96,6 +96,14 @@ client.connect().then((client) => {
     res.status(201).end();
   });
 
+  app.get('/user', async (req, res) => {
+    if (req.session.userId) {
+      res.end()
+    } else {
+      res.status(401).end();
+    }
+  })
+
   app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await db.collection('users').findOne({ email });
