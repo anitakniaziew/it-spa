@@ -15,6 +15,7 @@
       display: block;
       width: 30%;
       height: auto;
+      mix-blend-mode: normal;
     }
 
     &.hidden {
@@ -32,9 +33,10 @@
     .toggle-btn-icon {
       height: 32px;
       width: auto;
+      transform: rotate(180deg);
 
       &.active {
-        transform: rotate(0.5turn);
+        transform: rotate(0deg);
       }
     }
   }
