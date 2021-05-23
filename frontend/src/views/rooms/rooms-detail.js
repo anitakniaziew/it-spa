@@ -41,8 +41,9 @@ const roomsDetail = ({ roomId }) => {
           itemType: 'roomCartItem',
           reservationFrom: document.getElementById('reservation-start').value,
           reservationTo: document.getElementById('reservation-end').value,
-        });
-        document.dispatchEvent(createNavigationEvent('cart'));
+        })
+          .then(() => document.dispatchEvent(createNavigationEvent('cart')))
+          .catch(() => alert('Pokój już jest w koszyku!'));
       };
 
       const reservationForm = createElement('form', {

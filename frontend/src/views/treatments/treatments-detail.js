@@ -38,8 +38,7 @@ const treatmentsDetail = ({ treatmentId }) => {
             id: treatmentId,
             itemType: 'treatmentCartItem',
             quantity: 1,
-          });
-          document.dispatchEvent(createNavigationEvent('cart'));
+          }).then(() => document.dispatchEvent(createNavigationEvent('cart')));
         });
 
       section.innerHTML = '';
