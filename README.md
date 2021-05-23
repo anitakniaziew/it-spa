@@ -65,8 +65,8 @@ Now you're ready to go! To preview the app visit [http://localhost:3000](http://
 
 ## Links
 
-API documentation [https://app.swaggerhub.com/apis-docs/AnitaKow/IT-SPA/1.0.0](https://app.swaggerhub.com/apis-docs/AnitaKow/IT-SPA/1.0.0)
-Heroku deployment [https://it-spa.herokuapp.com/](https://it-spa.herokuapp.com/)
+- API documentation [https://app.swaggerhub.com/apis-docs/AnitaKow/IT-SPA/1.0.0](https://app.swaggerhub.com/apis-docs/AnitaKow/IT-SPA/1.0.0)
+- Heroku deployment [https://it-spa.herokuapp.com/](https://it-spa.herokuapp.com/)
 
 ## Contact
 
