@@ -40,6 +40,12 @@
   }
 }
 
+@media (max-width: 360px) {
+  .logo {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     position: fixed;
