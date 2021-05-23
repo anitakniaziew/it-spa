@@ -1,20 +1,14 @@
 require('dotenv').config();
 const path = require('path');
 const express = require('express');
-const cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
 
 const app = express();
 
+const port = process.env.PORT || 3000;
 
-app.use(
-  cors({
-    origin: 'http://localhost:9000',
-    credentials: true,
-  }),
-);
 app.use(express.json());
 app.use(
   session({
@@ -290,8 +284,6 @@ client.connect().then((client) => {
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/frontend/dist/index.html'))
   })
-
-  const port = process.env.PORT || 3000;
 
   app.listen(port, () => console.log(`Listeninig on port ${port}`));
 });
