@@ -2,7 +2,6 @@
 
 .navbar {
   height: 60px;
-  background-color: $blue;
   position: sticky;
   padding: 0;
   width: 100%;
@@ -29,7 +28,6 @@
 
   .nav-icon {
     height: 100%;
-    background-color: $blue;
     border: none;
     padding: 1rem;
     display: block;
@@ -56,7 +54,6 @@
   }
 
   .nav-links-mobile {
-    background-color: $blue;
     position: absolute;
     z-index: 1;
     top: -100vh;
@@ -67,7 +64,6 @@
     transition: left 0.15s ease-in-out 0.15s, top 0.15s ease-in-out;
 
     &-open {
-      color: $dark-blue;
       top: 0;
       left: 0;
       z-index: 1;
@@ -75,7 +71,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .menu-btn.nav-icon,
   .nav-links-mobile,
   .nav-links-mobile-open {

@@ -1,0 +1,62 @@
+@import '../../styles/colors.scss';
+
+.footer {
+  color: $white;
+  flex-direction: column;
+  padding: 1rem;
+  position: relative;
+  text-align: center;
+
+  .contact-container {
+    width: 100%;
+    padding-bottom: 1rem;
+  }
+
+  h6 {
+    color: $white;
+  }
+
+  p,
+  small {
+    color: $light-grey;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  small {
+    text-align: center;
+    padding-top: 1rem;
+    width: 100%;
+    border-top: 1px solid $light-grey;
+  }
+}
+
+@media (min-width: 630px) {
+  .footer {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    text-align: left;
+
+    .contact-container {
+      padding: 0;
+      min-width: 150px;
+    }
+
+    small {
+      padding: 0 1rem;
+      height: 100%;
+      max-width: 300px;
+      border: none;
+      text-align: left;
+      border-left: 1px solid $light-grey;
+    }
+  }
+}
+
+@media (min-width: 758px) {
+  .footer {
+    padding: 1rem 5rem;
+  }
+}

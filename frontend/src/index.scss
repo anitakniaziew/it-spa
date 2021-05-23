@@ -19,6 +19,13 @@ a:hover {
   cursor: pointer;
 }
 
+.navbar,
+.nav-links-mobile,
+.nav-icon,
+.footer {
+  background-color: $blue;
+}
+
 .page-title {
   text-align: center;
   margin: 1rem 0;

@@ -1,4 +1,6 @@
 .main {
+  min-height: calc(100vh - 60px);
+
   @media (max-width: 768px) {
     margin-top: 60px;
   }
