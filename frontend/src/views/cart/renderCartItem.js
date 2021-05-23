@@ -13,6 +13,14 @@ const removeCartItem = (id, price, quantity = 1) => {
   document.getElementById(id).remove();
 };
 
+const displayEmptyCartInfo = () => {
+  if (!document.getElementById('cart-items-container').hasChildNodes()) {
+    const cartSection = document.getElementById('cart-section');
+    cartSection.innerHTML = 'Koszyk jest pusty!';
+    cartSection.classList.add('cart-empty', 'text-center');
+  }
+};
+
 const renderTreatmentCartItem = (cartItem) => {
   const { id } = cartItem;
   let { quantity } = cartItem;
@@ -68,9 +76,7 @@ const renderTreatmentCartItem = (cartItem) => {
           createElement('h4', { children: [name] }),
           button('x', ['btn-remove-cart-item'], () => {
             removeCartItem(id, price, quantity);
-            if (!document.getElementById('cart-items-container').hasChildNodes()) {
-              document.getElementById('cart-section').innerHTML = 'Koszyk jest pusty!';
-            }
+            displayEmptyCartInfo();
           }),
         ],
       }),
@@ -117,9 +123,7 @@ const renderRoomCartItem = (cartItem) => {
           createElement('h4', { children: [name] }),
           button('x', ['btn-remove-cart-item'], () => {
             removeCartItem(id, price);
-            if (!document.getElementById('cart-items-container').hasChildNodes()) {
-              document.getElementById('cart-section').innerHTML = 'Koszyk jest pusty!';
-            }
+            displayEmptyCartInfo();
           }),
         ],
       }),
