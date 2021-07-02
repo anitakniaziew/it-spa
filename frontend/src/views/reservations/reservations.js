@@ -89,6 +89,11 @@ const reservations = () => {
   apiClient.get('/reservations')
     .then((response) => response.data)
     .then((reservations) => {
+      if (reservations.length === 0) {
+        section.innerHTML = "Nie masz jeszcze żadnych rezerwacji"
+        return;
+      }
+
       const lastReservation = reservations.pop();
       const lastReservationItem = createElement('article', {
         classNames: ['my-3', 'reservation-article'],

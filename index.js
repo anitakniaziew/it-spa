@@ -254,6 +254,7 @@ client.connect().then((client) => {
       return;
     }
     const reservation = {
+      userId: req.session.userId,
       createdAt: new Date().toLocaleString(),
       items: req.session.cart,
     };
@@ -269,7 +270,10 @@ client.connect().then((client) => {
       res.status(400).end();
       return;
     }
-    const reservations = await db.collection('reservations').find().toArray();
+    const reservations = await db
+      .collection('reservations')
+      .find({ userId: req.session.userId })
+      .toArray();
     const enrichedReservations = await Promise.all(reservations.map(mapId).map( async (reservation) => ({
       ...reservation,
       items: await enrichItems(reservation.items)
